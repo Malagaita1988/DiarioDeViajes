@@ -1,0 +1,321 @@
+/* ===========================
+   MASTERPIECE MODAL DESIGN SYSTEM
+   - Design tokens
+   - Smooth animations
+   - Advanced effects
+   - Responsive handling
+   - Accessibility focused
+=========================== */
+
+:root {
+  --modal-easing: cubic-bezier(0.22, 1, 0.36, 1);
+  --modal-timing: 0.6s;
+}
+
+/* ---------------------------
+   Modal Backdrop Layer 
+--------------------------- */
+.detail-modal {
+  position: fixed;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  background: rgba(0, 0, 0, 0.8);
+  backdrop-filter: blur(12px);
+  opacity: 0;
+  visibility: hidden;
+  transition: 
+    opacity var(--modal-timing) var(--modal-easing),
+    visibility var(--modal-timing);
+  z-index: 2000;
+  will-change: opacity;
+}
+
+.detail-modal::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    160deg,
+    rgba(var(--color-principal-rgb), 0.2),
+    rgba(var(--color-secundario-rgb), 0.1)
+  );
+  pointer-events: none;
+}
+
+.detail-modal.active {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* ---------------------------
+   Modal Content Container 
+--------------------------- */
+.detail-modal-content {
+  --modal-padding: 2rem;
+  position: relative;
+  width: min(90%, 680px);
+  max-height: 90vh;
+  background: rgba(var(--color-secundario-rgb), 0.95);
+  border-radius: 16px;
+  padding: var(--modal-padding);
+  color: var(--color-texto);
+  overflow: hidden;
+  box-shadow:
+    0 12px 32px -4px rgba(0, 0, 0, 0.4),
+    0 0 0 1px rgba(255, 255, 255, 0.1);
+}
+
+.detail-modal-content::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    160deg,
+    rgba(var(--color-principal-rgb), 0.15),
+    rgba(var(--color-secundario-rgb), 0.3)
+  );
+  mix-blend-mode: soft-light;
+  pointer-events: none;
+  z-index: -1;
+}
+
+/* Capa interna para agrupar el contenido sobre otros elementos */
+.modal-content-inner {
+  position: relative;
+  z-index: 2;
+}
+
+/* ---------------------------
+   Animaciones de entrada (cascada)
+--------------------------- */
+.detail-image-container {
+  position: relative;
+  border-radius: 12px;
+  overflow: hidden;
+  margin-bottom: 1rem;
+  aspect-ratio: 16/9;
+  transform: translateY(100vh);
+  opacity: 0;
+}
+
+.detail-modal-body {
+  transform: translateY(100vh);
+  opacity: 0;
+}
+
+@keyframes dropInFromTop {
+  from {
+    transform: translateY(-100vh);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes riseUpFromBottom {
+  from {
+    transform: translateY(100vh);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.detail-modal.active .detail-image-container {
+  animation: dropInFromTop var(--modal-timing) var(--modal-easing) forwards;
+}
+
+.detail-modal.active .detail-modal-body {
+  animation: riseUpFromBottom var(--modal-timing) var(--modal-easing) forwards;
+}
+
+/* ---------------------------
+   Imagen principal
+--------------------------- */
+.detail-image-container img.detail-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.4s var(--modal-easing);
+  backface-visibility: hidden;
+}
+
+.detail-image-container img.detail-image:hover {
+  transform: scale(1.09);
+}
+
+/* ---------------------------
+   Marca de agua (categoría) sobre la imagen
+--------------------------- */
+.category-watermark {
+  position: absolute;
+  bottom: 8px;
+  right: 8px;
+  font-size: 1rem;
+  color: rgba(255, 255, 255, 0.8);
+  background: rgba(0, 0, 0, 0.4);
+  padding: 0.2rem 0.5rem;
+  border-radius: 5px;
+  pointer-events: none;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+/* ---------------------------
+   Wrapper para imagen principal y carrusel
+--------------------------- */
+.detail-image-wrapper {
+  position: relative;
+}
+
+/* ---------------------------
+   Carrusel de imágenes
+--------------------------- */
+.detail-carousel {
+  position: absolute;
+  bottom: 10px;
+  left: 0;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 0 20px;
+  box-sizing: border-box;
+  pointer-events: auto;
+}
+
+/* Contenedor que oculta el overflow del track */
+.carousel-track-container {
+  flex: 1;
+  overflow: hidden;
+}
+
+/* Track que agrupa las miniaturas */
+.carousel-track {
+  display: flex;
+  gap: 16px;
+  transition: transform 0.5s ease-out;
+}
+
+/* Miniaturas: ancho fijo para facilitar el cálculo */
+.detail-carousel .carousel-track img.extra-image {
+  width: 100px;
+  height: auto;
+  transform: scale(0.8);
+  opacity: 0.6;
+  flex-shrink: 0;
+  transition: transform 0.5s ease-out, opacity 0.5s ease-out;
+  border: 4px solid;
+  border-image: linear-gradient(45deg, red, orange, yellow, green, blue, indigo, violet) 1;
+}
+
+/* La miniatura activa se muestra agrandada */
+.detail-carousel .carousel-track img.extra-image.active {
+  transform: scale(1);
+  opacity: 1;
+}
+
+/* ---------------------------
+   Botones de navegación del carrusel
+--------------------------- */
+.carousel-button {
+  background: rgba(0, 0, 0, 0.6);
+  border: none;
+  color: white;
+  font-size: 1.5rem;
+  padding: 0.5rem 0.8rem;
+  cursor: pointer;
+  z-index: 3;
+  pointer-events: auto;
+  border-radius: 4px;
+}
+
+/* ---------------------------
+   Botón de cierre del modal
+--------------------------- */
+.close-detail-button {
+  --size: 42px;
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  width: var(--size);
+  height: var(--size);
+  background: rgba(255, 255, 255, 0.1);
+  border: none;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+  transition: background 0.3s ease, transform 0.2s ease;
+  z-index: 10;
+  backdrop-filter: blur(4px);
+}
+
+.close-detail-button::before,
+.close-detail-button::after {
+  content: "";
+  position: absolute;
+  width: 18px;
+  height: 2px;
+  background: var(--color-texto);
+  transform-origin: center;
+}
+
+.close-detail-button::before {
+  transform: rotate(45deg);
+}
+
+.close-detail-button::after {
+  transform: rotate(-45deg);
+}
+
+.close-detail-button:hover {
+  background: rgba(255, 255, 255, 0.2);
+  transform: rotate(90deg) scale(1.1);
+}
+
+/* ---------------------------
+   Responsive Handling 
+--------------------------- */
+@media (max-width: 768px) {
+  .detail-modal-content {
+    --modal-padding: 1.25rem;
+    width: 95%;
+    border-radius: 12px;
+  }
+  
+  .close-detail-button {
+    --size: 36px;
+    top: 0.5rem;
+    right: 0.5rem;
+  }
+}
+
+@media (max-height: 600px) {
+  .detail-modal-content {
+    max-height: 95vh;
+    overflow-y: auto;
+  }
+  
+  .detail-image-container {
+    max-height: 40vh;
+  }
+}
+
+/* ---------------------------
+   Accessibility Features 
+--------------------------- */
+.detail-modal:focus-within {
+  outline: 2px solid var(--color-principal);
+  outline-offset: 4px;
+}
+
+.close-detail-button:focus {
+  box-shadow: 0 0 0 3px var(--color-principal);
+}

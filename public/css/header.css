@@ -1,0 +1,542 @@
+/* ------------------
+   ESTILOS GENERALES
+------------------ */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+}
+
+/* ------------------
+   HEADER PRINCIPAL
+------------------ */
+header {
+    background-color: #05668d;
+    color: white;
+    padding: 1rem;
+    position: relative;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+/* Estructura del header-top en 3 áreas: 
+   .header-left, .header-center, .header-right */
+.header-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 1rem;
+    margin-bottom: 1rem;
+}
+
+/* Área Izquierda: Enlaces de autenticación y badge */
+.header-left {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-right: auto; /* Empuja el título hacia el centro */
+}
+
+.auth-links {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+}
+
+.auth-link {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    text-decoration: none;
+    font-size: 1.5rem;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: transparent;
+    transition: background 0.3s ease, transform 0.3s ease;
+}
+
+.auth-link:hover {
+    background: rgba(2, 195, 154, 0.1);
+    transform: translateY(-2px);
+}
+
+.auth-link::after {
+    content: attr(data-tooltip);
+    position: absolute;
+    top: calc(100% + 8px);
+    left: 80%;
+    transform: translateX(-50%);
+    background: #028090;
+    color: #fff;
+    padding: 0.3rem 0.6rem;
+    border-radius: 4px;
+    white-space: nowrap;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+    font-size: 0.8rem;
+}
+
+.auth-link:hover::after {
+    opacity: 1;
+}
+
+/* Badge de usuario */
+.user-badge {
+    position: relative;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background: #02c39a;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    color: white;
+    font-weight: bold;
+    font-size: 0.7rem;
+    transition: background 0.3s ease, transform 0.3s ease, font-size 0.3s ease;
+}
+
+.user-badge:hover {
+    background: #028090;
+    transform: scale(1.33);
+    font-size: 1rem;
+}
+
+.user-dropdown {
+    display: none;
+    position: absolute;
+    top: 30px;
+    right: -40px;
+    text-align: center;
+    background: transparent;
+    color: white;
+    padding: 10px;
+    border-radius: 5px;
+    z-index: 1000;
+    min-width: 150px;
+}
+
+.user-dropdown p {
+    margin: 0 0 10px;
+    font-size: 0.9rem;
+}
+
+.user-dropdown button {
+    background: #028090;
+    border: none;
+    padding: 5px 10px;
+    color: white;
+    border-radius: 3px;
+    cursor: pointer;
+    font-size: 0.9rem;
+}
+.user-dropdown button:hover {
+    background: #02c39a;
+}
+
+.user-badge.show-dropdown .user-dropdown {
+    display: block;
+}
+
+/* Área Centro: Título */
+.header-center {
+    flex: 1;
+    text-align: center;
+}
+
+.header-title {
+    font-family: 'Lora', serif;
+    font-size: 1.8rem;
+    color: white;
+    white-space: nowrap;
+    margin: 0;
+}
+
+/* Área Derecha: Botón hamburguesa */
+.header-right {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+.hamburger {
+    background: #02c39a;
+    border: none;
+    border-radius: 5px;
+    padding: 10px;
+    cursor: pointer;
+    z-index: 1000;
+    transition: all 0.3s ease;
+    margin-left: 1rem;
+    display: none; /* Se muestra en responsive */
+    position: absolute;
+    right: 1rem;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.hamburger span {
+    display: block;
+    width: 25px;
+    height: 2px;
+    background: white;
+    margin: 5px 0;
+    transition: all 0.3s ease;
+}
+
+.hamburger.active span:nth-child(1) {
+    transform: rotate(45deg) translate(5px, 5px);
+}
+
+.hamburger.active span:nth-child(2) {
+    opacity: 0;
+}
+
+.hamburger.active span:nth-child(3) {
+    transform: rotate(-45deg) translate(7px, -6px);
+}
+
+/* ------------------
+   MENÚ NAVEGACIÓN (Se mantienen los estilos originales)
+------------------ */
+#main-nav {
+    width: 100%;
+    transition: all 0.3s ease;
+}
+
+#menu-categorias {
+    list-style: none;
+    display: flex;
+    justify-content: center;
+    padding: 0;
+    margin: 0;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+}
+
+.category-btn,
+#add-entry-button {
+    border: none;
+    color: white;
+    padding: 0.75rem 1.5rem;
+    font-size: 1rem;
+    border-radius: 10px;
+    cursor: pointer;
+    font-family: 'Poppins', sans-serif;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.category-btn {
+    background: #028090;
+}
+
+.category-btn.active {
+    background: #02c39a;
+}
+
+#add-entry-button {
+    background-color: #02c39a;
+    border: 2px solid #02c39a;
+    text-transform: uppercase;
+    font-weight: bold;
+}
+
+/* ------------------
+   MENÚ HAMBURGUESA (Responsive)
+------------------ */
+@media screen and (max-width: 768px) {
+    .hamburger {
+        display: block;
+    }
+    
+    #main-nav {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        background: #05668d;
+        z-index: 999;
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.3s ease;
+        box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+    }
+    
+    #main-nav.active {
+        max-height: 1000px;
+        padding: 1rem;
+    }
+    
+    #menu-categorias {
+        flex-direction: column;
+        margin: 0;
+    }
+    
+    #menu-categorias li {
+        width: 100%;
+    }
+    
+    .category-btn,
+    #add-entry-button {
+        width: 100%;
+        justify-content: center;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .header-top h1 {
+        font-size: 1.5rem;
+        max-width: 200px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+    
+    .hamburger {
+        padding: 8px;
+        right: 0.5rem;
+    }
+    
+    .hamburger span {
+        width: 22px;
+    }
+    
+    .auth-links {
+        gap: 0.5rem;
+    }
+    
+    .category-btn,
+    #add-entry-button {
+        font-size: 0.9rem;
+        padding: 0.8rem;
+    }
+    
+    .auth-link {
+        width: 35px;
+        height: 35px;
+        font-size: 1.3rem;
+    }
+    
+    .auth-link::after {
+        font-size: 0.7rem;
+    }
+}
+
+/* ------------------
+   EFECTOS HOVER
+------------------ */
+@media (hover: hover) {
+    .category-btn:hover {
+        background-color: #02c39a;
+        transform: translateY(-2px);
+    }
+    
+    #add-entry-button:hover {
+        background-color: #028090;
+        border-color: #028090;
+        transform: translateY(-2px);
+    }
+    
+    .hamburger:hover {
+        background: #029e87;
+    }
+}
+
+/* ------------------
+   ESTADOS ACTIVOS
+------------------ */
+.category-btn.active {
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+}
+
+#add-entry-button:active,
+.category-btn:active {
+    transform: translateY(1px);
+}
+
+/* ===========================
+   Aviso de usuario logueado - Push-up
+========================== */
+#login-notification {
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%) translateY(100%);
+    background: linear-gradient(45deg, #02c39a, #028090);
+    color: white;
+    padding: 15px 30px;
+    border-radius: 25px;
+    font-size: 1.2rem;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+    opacity: 0;
+    transition: transform 0.5s ease, opacity 0.5s ease;
+    z-index: 10000;
+}
+
+#login-notification.show {
+    transform: translateX(-50%) translateY(0);
+    opacity: 1;
+}
+
+/* ===========================
+   Estilos para registros de usuario - Auth Modal
+========================== */
+.auth-modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.5);
+    z-index: 9999;
+    justify-content: center;
+    align-items: center;
+}
+
+.auth-modal.active {
+    display: flex;
+}
+
+.auth-modal-content {
+    background: linear-gradient(145deg, #05668d, #028090);
+    padding: 2rem;
+    border-radius: 15px;
+    width: 90%;
+    max-width: 400px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+    position: relative;
+    text-align: center;
+}
+
+.close-modal {
+    position: absolute;
+    top: 1rem;
+    right: 1.5rem;
+    color: white;
+    font-size: 2rem;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+}
+
+.close-modal:hover {
+    transform: scale(1.2);
+}
+
+.auth-forms {
+    position: relative;
+    min-height: 300px;
+}
+
+.auth-form {
+    display: none;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.auth-form.active {
+    display: block;
+    opacity: 1;
+}
+
+.auth-form h2 {
+    color: #02c39a;
+    margin-bottom: 1.5rem;
+    text-align: center;
+    font-family: 'Lora', serif;
+}
+
+.form-group {
+    margin-bottom: 1.2rem;
+    text-align: left;
+}
+
+.form-group label {
+    display: block;
+    color: white;
+    margin-bottom: 0.5rem;
+    font-size: 0.9rem;
+}
+
+.form-group input {
+    width: 100%;
+    padding: 0.8rem;
+    border: 2px solid #02c39a;
+    border-radius: 8px;
+    background: rgba(255,255,255,0.1);
+    color: white;
+    font-size: 1rem;
+    transition: background 0.3s ease, box-shadow 0.3s ease;
+}
+
+.form-group input:focus {
+    outline: none;
+    background: rgba(255,255,255,0.2);
+    box-shadow: 0 0 10px rgba(2,195,154,0.5);
+}
+
+.auth-btn {
+    width: 100%;
+    padding: 1rem;
+    background: #02c39a;
+    border: none;
+    border-radius: 8px;
+    color: white;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background 0.3s ease, transform 0.3s ease;
+    text-transform: uppercase;
+    font-weight: bold;
+    margin-top: 1rem;
+}
+
+.auth-btn:hover {
+    background: #028090;
+    transform: translateY(-2px);
+}
+
+.auth-toggle {
+    text-align: center;
+    color: white;
+    margin-top: 1.5rem;
+}
+
+.auth-toggle a {
+    color: #02c39a;
+    text-decoration: none;
+    font-weight: bold;
+    transition: color 0.3s ease;
+}
+
+.auth-toggle a:hover {
+    color: #028090;
+}
+
+@media (max-width: 480px) {
+    .auth-modal-content {
+        padding: 1.5rem;
+    }
+    
+    .auth-form h2 {
+        font-size: 1.5rem;
+    }
+    
+    .form-group input {
+        padding: 0.7rem;
+    }
+    
+    .auth-btn {
+        padding: 0.8rem;
+    }
+}

@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <meta http-equiv="Content-Language" content="es">
+  
+  <title>Diario de Viajes - Travel Vibes</title>
+  
+
+  <meta name="description" content="Descubre y comparte tus experiencias de viaje en Diario de Viajes. Únete a la comunidad y explora destinos únicos alrededor del mundo.">
+  <meta name="keywords" content="viajes, turismo, aventuras, cultura, gastronomía, diario de viajes, Travel Vibes">
+  <meta name="robots" content="index, follow">
+  <meta name="author" content="Travel Vibes">
+  
+  <!-- Canonical -->
+  <link rel="canonical" href="https://www.diariodeviajes.com/">
+  
+
+  <!-- Open Graph Tags -->
+  <meta property="og:title" content="Diario de Viajes - Travel Vibes">
+  <meta property="og:description" content="Descubre y comparte tus experiencias de viaje en Diario de Viajes. Únete a la comunidad y explora destinos únicos alrededor del mundo.">
+  <meta property="og:image" content="https://www.diariodeviajes.com/path/to/og-image.jpg">
+  <meta property="og:url" content="https://www.diariodeviajes.com/">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="es_ES">
+  
+  <!-- Twitter Card Tags -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Diario de Viajes - Travel Vibes">
+  <meta name="twitter:description" content="Descubre y comparte tus experiencias de viaje en Diario de Viajes. Únete a la comunidad y explora destinos únicos alrededor del mundo.">
+  <meta name="twitter:image" content="https://www.diariodeviajes.com/path/to/twitter-image.jpg">
+
+  <!-- Datos estructurados JSON-LD para la organización -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "Travel Vibes",
+    "url": "https://www.diariodeviajes.com/",
+    "logo": "https://www.diariodeviajes.com/path/to/logo.png",
+    "contactPoint": [{
+      "@type": "ContactPoint",
+      "telephone": "+34 900 123 456",
+      "contactType": "customer service",
+      "email": "contacto@Travel.com"
+    }]
+  }
+  </script>
+  
+  <!-- Favicon -->
+  <link rel="icon" href="/favicon.ico" type="image/x-icon">
+  
+  <!-- Hojas de estilos existentes -->
+  <link rel="stylesheet" href="/css/base.css">
+  <link rel="stylesheet" href="/css/main.css">
+  <link rel="stylesheet" href="/css/detalle.css">
+  <link rel="stylesheet" href="/css/favorites.css">
+  <link rel="stylesheet" href="/css/header.css">
+  <link rel="stylesheet" href="/css/form.css">
+  <link rel="stylesheet" href="/css/slider.css">
+  <link rel="stylesheet" href="/css/footer.css">
+  <!-- Hoja de estilos para el selector de idiomas -->
+  <link rel="stylesheet" href="/css/language-selector.css">
+  
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;1,700&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  
+  <!-- Google Maps API: La API key se inyecta desde el backend mediante EJS -->
+  <script async src="https://maps.googleapis.com/maps/api/js?key=<%= googleMapsApiKey %>&libraries=places"></script>
+  
+  <!-- Google Translate (widget oculto) -->
+  <style>
+    /* Ocultamos el widget por defecto de Google Translate */
+    #google_translate_element { display: none; }
+  </style>
+  <script>
+    function googleTranslateElementInit() {
+      new google.translate.TranslateElement({
+        pageLanguage: 'es',
+        includedLanguages: 'en,es,fr,de,zh-CN,zh-TW'
+      }, 'google_translate_element');
+      console.log("Google Translate widget inicializado");
+    }
+  </script>
+  <script src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+</head>
+<body>
+  <!-- Contenedor del widget de Google Translate (obligatorio, aunque se oculte) -->
+  <div id="google_translate_element"></div>
+
+  <!-- Selector de Idiomas Personalizado -->
+  <div class="language-selector">
+    <select id="language-select">
+      <option value="es" selected>🇪🇸</option>
+      <option value="en">🇬🇧</option>
+      <option value="fr">🇫🇷</option>
+      <option value="de">🇩🇪</option>
+      <option value="zh-CN">🇨🇳</option>
+      <option value="zh-TW">🇹🇼</option>
+    </select>
+  </div>
+
+  <!-- HEADER -->
+  <header>
+    <div class="header-top">
+      <!-- Área Izquierda: Enlaces de autenticación y badge de usuario -->
+      <div class="header-left">
+        <div class="auth-links">
+          <a href="#" class="auth-link" data-form="login" data-tooltip="Iniciar Sesión">
+            <i class="fas fa-sign-in-alt"></i>
+          </a>
+          <a href="#" class="auth-link" data-form="register" data-tooltip="Registrarse">
+            <i class="fas fa-user-plus"></i>
+          </a>
+          <!-- Badge de usuario (oculto por defecto) -->
+          <div id="user-badge" class="user-badge" style="display: none;">
+            <span id="user-initials"></span>
+            <div class="user-dropdown">
+              <p id="user-fullname"></p>
+              <button id="logout-btn">Cerrar Sesión</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Área Centro: Título -->
+      <div class="header-center">
+        <h1 class="header-title">Diario de viajes</h1>
+      </div>
+      <!-- Área Derecha: Botón de hamburguesa -->
+      <div class="header-right">
+        <button class="hamburger">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+      </div>
+    </div>
+    <!-- Menú de navegación -->
+    <nav id="main-nav">
+      <ul id="menu-categorias">
+        <li>
+          <button class="category-btn active" data-category="all">
+            <i class="fas fa-globe"></i> Todas Las categorías
+          </button>
+        </li>
+        <li>
+          <button class="category-btn" data-category="aventura">
+            <i class="fas fa-hiking"></i> Aventura
+          </button>
+        </li>
+        <li>
+          <button class="category-btn" data-category="cultura">
+            <i class="fas fa-landmark"></i> Cultura
+          </button>
+        </li>
+        <li>
+          <button class="category-btn" data-category="gastronomia">
+            <i class="fas fa-utensils"></i> Gastronomía
+          </button>
+        </li>
+        <li class="add-button-container">
+          <button id="add-entry-button">
+            <i class="fas fa-plus-circle"></i> Añadir Nuevo Viaje
+          </button>
+        </li>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- FAVORITOS -->
+  <div class="favorites-wrapper">
+    <div class="favorite-item">
+      <button type="button" class="trigger">
+        <span class="icon">❤️</span>
+        <span id="favorites-counter">0</span>
+      </button>
+      <div class="tooltip-heart">Favoritos</div>
+    </div>
+    <button class="bin-button" id="clear-favorites-button">
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 39 7" class="bin-top">
+        <line stroke-width="4" stroke="white" y2="5" x2="39" y1="5"></line>
+        <line stroke-width="3" stroke="white" y2="1.5" x2="26.0357" y1="1.5" x1="12"></line>
+      </svg>
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 33 39" class="bin-bottom">
+        <path d="M0 0H33V35C33 37.2091 31.2091 39 29 39H4C1.79086 39 0 37.2091 0 35V0Z" fill="white"></path>
+        <path stroke-width="4" stroke="white" d="M12 6L12 29"></path>
+        <path stroke-width="4" stroke="white" d="M21 6V29"></path>
+      </svg>
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 89 80" class="garbage">
+        <path fill="white" d="M20.5 10.5L37.5 15.5L42.5 11.5L51.5 12.5L68.75 0L72 11.5L79.5 12.5H88.5L87 22L68.75 31.5L75.5066 25L86 26L87 35.5L77.5 48L70.5 49.5L80 50L77.5 71.5L63.5 58.5L53.5 68.5L65.5 70.5L45.5 73L35.5 79.5L28 67L16 63L12 51.5L0 48L16 25L22.5 17L20.5 10.5Z"></path>
+      </svg>
+      <div class="tooltip-content">Limpiar favoritos</div>
+    </button>
+  </div>
+
+  <!-- MAIN -->
+  <main>
+    <section id="search-bar">
+      <input type="text" id="search-input" placeholder="Buscar por lugar o comentario...">
+    </section>
+    <section id="entries-container"></section>
+    <div id="toggle-button-container" class="hidden"></div>
+    <section id="map-container">
+      <div id="map"></div>
+    </section>
+  </main>
+
+  <!-- SLIDER -->
+  <div class="slider-container">
+    <div class="slider-wrapper">
+      <div class="slide active" data-slide="1">
+        <div class="slide-content">
+          <h2>Finlandia</h2>
+        </div>
+      </div>
+      <div class="slide" data-slide="2">
+        <div class="slide-content">
+          <h2>Moscú</h2>
+        </div>
+      </div>
+      <div class="slide" data-slide="3">
+        <div class="slide-content">
+          <h2>Tokio</h2>
+        </div>
+      </div>
+    </div>
+    <div class="slider-controls">
+      <div class="arrow left-arrow">‹</div>
+      <div class="arrow right-arrow">›</div>
+      <div class="dots-container"></div>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-content">
+      <div class="footer-section about">
+        <h3><i class="fas fa-compass"></i> Sobre Nosotros</h3>
+        <p>Travel Vibes es una plataforma donde puedes compartir tus experiencias y descubrimientos por el mundo. ¡Únete a nuestra comunidad!</p>
+      </div>
+      <div class="footer-section faq">
+        <h3><i class="fas fa-question-circle"></i> Preguntas Frecuentes</h3>
+        <ul>
+          <li><a href="#"><i class="fas fa-chevron-right"></i> ¿Cómo creo una nueva entrada?</a></li>
+          <li><a href="#"><i class="fas fa-chevron-right"></i> ¿Cómo añado fotos?</a></li>
+          <li><a href="#"><i class="fas fa-chevron-right"></i> ¿Puedo compartir viajes?</a></li>
+          <li><a href="#"><i class="fas fa-chevron-right"></i> ¿Existen planes Premium?</a></li>
+        </ul>
+      </div>
+      <div class="footer-section contact">
+        <h3><i class="fas fa-envelope"></i> Contacto</h3>
+        <p><i class="fas fa-envelope-open-text"></i> contacto@Travel.com</p>
+        <p><i class="fas fa-phone-alt"></i> +34 900 123 456</p>
+        <p><i class="fas fa-map-marker-alt"></i> Calle de la Aventura, 123<br>28000, Madrid, España</p>
+      </div>
+      <div class="footer-section social">
+        <h3><i class="fas fa-hashtag"></i> Síguenos</h3>
+        <div class="social-icons">
+          <a href="#" aria-label="Facebook"><i class="fab fa-facebook"></i></a>
+          <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+          <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+          <a href="#" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2025 Diario de Viajes. Todos los derechos reservados.</p>
+    </div>
+  </footer>
+
+  <!-- Modal de autenticación -->
+  <div class="auth-modal" id="auth-modal">
+    <div class="auth-modal-content">
+      <span class="close-modal">&times;</span>
+      <div class="auth-forms">
+        <form id="register-form" class="auth-form active">
+          <h2>Únete a la Aventura ✈️</h2>
+          <div class="form-group">
+            <label><i class="fas fa-user"></i> Nombre</label>
+            <input type="text" id="register-name" required>
+          </div>
+          <div class="form-group">
+            <label><i class="fas fa-envelope"></i> Email</label>
+            <input type="email" id="register-email" required>
+          </div>
+          <div class="form-group">
+            <label><i class="fas fa-lock"></i> Contraseña</label>
+            <input type="password" id="register-password" required>
+          </div>
+          <button type="submit" class="auth-btn">Registrarme</button>
+          <p class="auth-toggle">¿Ya tienes cuenta? <a href="#" id="show-login">Iniciar Sesión</a></p>
+        </form>
+        <form id="login-form" class="auth-form">
+          <h2>Bienvenido de Vuelta 🌍</h2>
+          <div class="form-group">
+            <label><i class="fas fa-envelope"></i> Email</label>
+            <input type="email" id="login-email" required>
+          </div>
+          <div class="form-group">
+            <label><i class="fas fa-lock"></i> Contraseña</label>
+            <input type="password" id="login-password" required>
+          </div>
+          <button type="submit" class="auth-btn">Iniciar Sesión</button>
+          <p class="auth-toggle">¿Nuevo aquí? <a href="#" id="show-register">Crear Cuenta</a></p>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- Aviso push-up -->
+  <div id="login-notification" class="login-notification"></div>
+
+  <!-- Scripts existentes -->
+  <script src="/js/main.js"></script>
+  <script src="/js/map.js"></script>
+  <script src="/js/favorites.js"></script>
+  <script src="/js/entries.js"></script>
+  <script src="/js/detail.js"></script>
+  <script src="/js/form.js"></script>
+  <script src="/js/auth.js"></script>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="/js/slider.js"></script>
+  <!-- Script para el selector de idiomas -->
+  <script src="/js/language-selector.js"></script>
+</body>
+</html>

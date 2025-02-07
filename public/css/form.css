@@ -1,0 +1,744 @@
+  /* ===========================
+    1. Variables de Color y Radius
+  =========================== */
+  :root {
+    /* Nuestra paleta nueva */
+    --primary: #02c39a;      /* Acento (para interacciones y degradados destacados) */
+    --neutral-1: #05668d;    /* Secundario (usado en degradados y bordes) */
+    --neutral-2: #028090;    /* Principal */
+    --radius: 14px;
+    --neon-blue: #028090;    /* Color principal para algunos efectos */
+    --neon-pink: #02c39a;    /* Acento en textos o iconos */
+    --neon-green: #02c39a;   /* Acento en estados completados */
+    --neon-red: #05668d;     /* Secundario */
+    --text-color: #ffffff;   /* Color de texto por defecto */
+    --background-gradient: linear-gradient(145deg, #05668d, #028090);
+  }
+
+  /* ===========================
+  2. Botones - Estilos Generales
+  =========================== */
+  .button {
+    border-radius: var(--radius);
+    cursor: pointer;
+    text-shadow: 0 1px 1px rgba(0,0,0,0.3);
+    border: none;
+    box-shadow: 0 0.5px 0.5px 1px rgba(255,255,255,0.2),
+                0 10px 20px rgba(0,0,0,0.2),
+                0 4px 5px 0px rgba(0,0,0,0.05);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    transition: all 0.3s ease;
+    min-width: 200px;
+    padding: 20px;
+    height: 68px;
+    font-family: "Galano Grotesque", Poppins, Montserrat, sans-serif;
+    font-size: 18px;
+    font-weight: 600;
+    background: linear-gradient(to top, var(--neutral-1), var(--neutral-2));
+    color: var(--text-color);
+    overflow: hidden;
+  }
+
+  /* -------- Botón Guardar (Save) -------- */
+  .btn-save {
+    background: linear-gradient(to top, #029a8c, #02c39a);
+    color: #ffffff !important;
+    box-shadow: 0 0.5px 0.5px 1px rgba(255,255,255,0.2),
+                0 10px 20px rgba(0,0,0,0.2),
+                0 4px 5px 0px rgba(0,0,0,0.05);
+    transition: all 0.3s ease, color 0.3s ease;
+  }
+  .btn-save:hover {
+    transform: scale(1.03);
+    color: #000000;
+  }
+
+  /* -------- Efectos hover y active generales -------- */
+  .button:hover {
+    transform: scale(1.02);
+    box-shadow: 0 0 1px 2px rgba(255,255,255,0.3),
+                0 15px 30px rgba(0,0,0,0.3),
+                0 10px 3px -3px rgba(0,0,0,0.04);
+  }
+  .button:active {
+    transform: scale(1);
+    box-shadow: 0 0 1px 2px rgba(255,255,255,0.3),
+                0 10px 3px -3px rgba(0,0,0,0.2);
+  }
+
+  /* -------- Efecto borde degradado -------- */
+  .button::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: var(--radius);
+    border: 2.5px solid transparent;
+    background: linear-gradient(var(--neutral-1), var(--neutral-2)) padding-box,
+                linear-gradient(to bottom, rgba(0,0,0,0.1), rgba(0,0,0,0.45)) border-box;
+    z-index: 0;
+    transition: all 0.4s ease;
+    pointer-events: none;
+  }
+  .button::before {
+    content: "";
+    position: absolute;
+    inset: 7px 6px 6px 6px;
+    background: linear-gradient(to top, var(--neutral-1), var(--neutral-2));
+    border-radius: 30px;
+    filter: blur(0.5px);
+    z-index: 2;
+    pointer-events: none;
+  }
+  .button:hover::after {
+    transform: scale(1.05, 1.1);
+    box-shadow: inset 0 -1px 3px 0 rgba(255,255,255,1);
+  }
+
+  /* Animación del borde giratorio */
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+  .outline {
+    position: absolute;
+    inset: -2px -3.5px;
+    border-radius: inherit;
+    overflow: hidden;
+    opacity: 0;
+    transition: opacity 0.4s ease;
+    z-index: 1;
+    pointer-events: none;
+  }
+  .outline::before {
+    content: "";
+    position: absolute;
+    inset: -100%;
+    background: conic-gradient(from 180deg, transparent 60%, white 80%, transparent 100%);
+    animation: spin 2s linear infinite;
+    animation-play-state: paused;
+  }
+  .button:hover .outline {
+    opacity: 1;
+  }
+  .button:hover .outline::before {
+    animation-play-state: running;
+  }
+
+  /* -------- Letras e Iconos -------- */
+  .state p {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .state p span {
+    display: inline-block;
+    opacity: 0;
+    animation: slideDown 0.8s ease forwards calc(var(--i) * 0.03s);
+  }
+  .button:hover p span {
+    opacity: 1;
+    animation: wave 0.5s ease forwards calc(var(--i) * 0.02s);
+  }
+  .button:focus p span {
+    animation: disapear 0.6s ease forwards calc(var(--i) * 0.03s);
+  }
+  .state .icon {
+    position: absolute;
+    left: 0;
+    transform: scale(1.25);
+    transition: all 0.3s ease;
+  }
+  .state .icon svg {
+    overflow: visible;
+  }
+  .state {
+    padding-left: 29px;
+    z-index: 2;
+    display: flex;
+    position: relative;
+  }
+  .state--default span {
+    margin-right: 0 !important;
+  }
+  .state--sent {
+    display: none;
+  }
+  .state--sent svg {
+    transform: scale(1.25);
+    margin-right: 8px;
+  }
+  .button:focus .state--default {
+    position: absolute;
+  }
+  .button:focus .state--sent {
+    display: flex;
+  }
+  .button:focus .state--sent span {
+    opacity: 0;
+    animation: slideDown 0.8s ease forwards calc(var(--i) * 0.2s);
+  }
+  .button:focus .state--sent .icon svg {
+    opacity: 0;
+    animation: appear 1.2s ease forwards 0.8s;
+  }
+
+  /* Animaciones internas */
+  @keyframes wave {
+    30% { transform: translateY(4px); }
+    50% { transform: translateY(-3px); color: var(--primary); }
+    100% { transform: translateY(0); }
+  }
+  @keyframes slideDown {
+    0% {
+      opacity: 0;
+      transform: translateY(-20px) translateX(5px) rotate(-90deg);
+      color: var(--primary);
+      filter: blur(5px);
+    }
+    30% {
+      opacity: 1;
+      transform: translateY(4px) translateX(0) rotate(0);
+      filter: blur(0);
+    }
+    50% {
+      opacity: 1;
+      transform: translateY(-3px) translateX(0) rotate(0);
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0) translateX(0) rotate(0);
+    }
+  }
+  @keyframes disapear {
+    from { opacity: 1; }
+    to {
+      opacity: 0;
+      transform: translateX(5px) translateY(20px);
+      color: var(--primary);
+      filter: blur(5px);
+    }
+  }
+  @keyframes appear {
+    0% {
+      opacity: 0;
+      transform: scale(4) rotate(-40deg);
+      color: var(--primary);
+      filter: blur(4px);
+    }
+    30% {
+      opacity: 1;
+      transform: scale(0.6);
+      filter: blur(1px);
+    }
+    50% {
+      opacity: 1;
+      transform: scale(1.2);
+      filter: blur(0);
+    }
+    100% {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+
+  /* Animaciones de “avión” */
+  .state--default .icon svg {
+    animation: land 0.6s ease forwards;
+  }
+  .button:hover .state--default .icon {
+    transform: rotate(45deg) scale(1.25);
+  }
+  .button:focus .state--default svg {
+    animation: takeOff 0.8s linear forwards;
+  }
+  .button:focus .state--default .icon {
+    transform: rotate(0) scale(1.25);
+  }
+  @keyframes takeOff {
+    0% { opacity: 1; }
+    60% {
+      opacity: 1;
+      transform: translateX(70px) rotate(45deg) scale(2);
+    }
+    100% {
+      opacity: 0;
+      transform: translateX(160px) rotate(45deg) scale(0);
+    }
+  }
+  @keyframes land {
+    0% {
+      transform: translateX(-60px) translateY(30px) rotate(-50deg) scale(2);
+      opacity: 0;
+      filter: blur(3px);
+    }
+    100% {
+      transform: translateX(0) translateY(0) rotate(0);
+      opacity: 1;
+      filter: blur(0);
+    }
+  }
+
+  /* Contrail (rastro del ícono) */
+  .state--default .icon::before {
+    content: "";
+    position: absolute;
+    top: 50%;
+    height: 2px;
+    width: 0;
+    left: -5px;
+    background: linear-gradient(to right, transparent, rgba(0, 0, 0, 0.5));
+  }
+  .button:focus .state--default .icon::before {
+    animation: contrail 0.8s linear forwards;
+  }
+  @keyframes contrail {
+    0% {
+      width: 0;
+      opacity: 1;
+    }
+    8% { width: 15px; }
+    60% {
+      opacity: 0.7;
+      width: 80px;
+    }
+    100% {
+      opacity: 0;
+      width: 160px;
+    }
+  }
+
+  /* ===========================
+  3. Modal - Estructura Principal
+  =========================== */
+  .modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.9);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    padding: 20px;
+  }
+  .modal-content {
+    background: var(--background-gradient);
+    width: min(95%, 800px);
+    border-radius: 12px;
+    padding: 30px;
+    color: var(--text-color);
+    max-height: 90vh;
+    overflow-y: auto;
+  }
+
+  /* ===========================
+  4. Título y Estructura General del Formulario
+  =========================== */
+  #entry-form h2 {
+    color: var(--text-color);
+    font-size: 1.7rem;
+    margin-bottom: 25px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid rgba(255,255,255,0.2);
+  }
+  .form-columns-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr; /* Dos columnas iguales por defecto */
+    gap: 30px;
+    align-items: start;
+    margin-bottom: 25px;
+  }
+  .form-column {
+    display: grid;
+    gap: 20px;
+    grid-auto-rows: minmax(82px, auto);
+  }
+
+  /* ===========================
+  5. Inputs y Controles de Formulario
+  =========================== */
+  .form-group {
+    width: 100%;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-bottom: 8px;
+  }
+  #entry-form label {
+    display: block;
+    color: rgba(255,255,255,0.95);
+    font-size: 0.95rem;
+    font-weight: 500;
+  }
+  #entry-form input,
+  #entry-form textarea,
+  #entry-form select {
+    width: 100%;
+    max-width: 500px;
+    margin: 0 auto;
+    text-align: left;
+    padding: 12px 15px;
+    background: rgba(0, 0, 0, 0.3);
+    border: 2px solid rgba(255,255,255,0.2);
+    border-radius: 8px;
+    color: var(--text-color);
+    font-size: 1rem;
+    transition: all 0.3s ease;
+  }
+  #category {
+    appearance: none;
+    padding-right: 40px !important;
+    background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="%23ffffff"><path d="M7 10l5 5 5-5z"/></svg>') no-repeat right 15px center/12px;
+    cursor: pointer;
+  }
+
+  /* ===========================
+  6. Selector de Categorías
+  =========================== */
+  .radio-inputs-custom {
+    position: relative;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    border-radius: 8px;
+    background: rgba(255,255,255,0.05);
+    box-shadow: 0 0 0px 1px rgba(255,255,255,0.1);
+    padding: 4px;
+    width: 100%;
+    transition: all 0.3s ease;
+  }
+  .radio-custom {
+    flex: 1 1 auto;
+    text-align: center;
+    min-width: 100px;
+  }
+  .radio-custom input {
+    display: none;
+  }
+  .radio-custom .name {
+    display: flex;
+    cursor: pointer;
+    align-items: center;
+    justify-content: center;
+    border-radius: 6px;
+    padding: 12px 15px;
+    background:  #02c39a;
+    color: rgba(255,255,255,0.8);
+    transition: all 0.2s ease;
+    border: 1px solid transparent;
+    font-size: 0.9rem;
+  }
+  .radio-custom:hover .name {
+    background: rgba(255,255,255,0.05);
+  }
+  .radio-custom input:checked + .name {
+    background: #fff !important;
+    color: #2a2a2a !important;
+    font-weight: 600;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+    border-color: rgba(255,255,255,0.2);
+    animation: select 0.3s ease;
+  }
+  @keyframes select {
+    0% { transform: scale(0.95); }
+    50% { transform: scale(1.05); }
+    100% { transform: scale(1); }
+  }
+
+  /* ===========================
+  7. Botón de Subir Imágenes
+  =========================== */
+  .upload-button {
+    position: relative;
+    width: 10rem;
+    height: 3rem;
+    cursor: pointer;
+    border: none;
+    background: none;
+    overflow: hidden;
+    padding: 0;
+    margin: 0 auto;
+    display: block;
+  }
+  .upload-button svg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 1;
+  }
+  .upload-button .upload-border {
+    stroke: var(--text-color);
+    stroke-width: 2px;
+    rx: 1em;
+    ry: 1em;
+    stroke-dasharray: 25;
+    transition: fill 0.25s;
+    animation: stroke-animation 4s linear infinite;
+  }
+  @keyframes stroke-animation {
+    0% { stroke-dashoffset: 100; }
+    to { stroke-dashoffset: 0; }
+  }
+  .upload-button:hover .upload-border {
+    fill: rgba(2,128,144,0.1);
+  }
+  .upload-button:focus .upload-border {
+    transition: fill 0.25s 7.75s;
+    fill: white;
+  }
+  .upload-button .upload-text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 2;
+    color: #ffffff;
+    font-weight: 600;
+    font-size: 1rem;
+    text-shadow: 0 0 5px rgba(2,128,144,0.7);
+    transition: color 0.3s ease;
+  }
+  .upload-button:hover .upload-text {
+    color: #000000;
+  }
+  .upload-button .upload-progress {
+    position: absolute;
+    bottom: 5px;
+    right: 10px;
+    color: white;
+    font-weight: 600;
+    font-size: 0.8rem;
+    opacity: 0;
+    transition: opacity 0.3s;
+  }
+  .upload-button .upload-done-icon {
+    position: absolute;
+    top: 50%;
+    right: 50px;
+    transform: translateY(-50%) translateX(20px);
+    opacity: 0;
+    transition: all 0.5s ease;
+  }
+  .upload-button .done-cloud {
+    stroke: var(--neon-green);
+    stroke-width: 2;
+  }
+  .upload-button .done-check {
+    stroke: var(--neon-green);
+    stroke-width: 2;
+  }
+  .upload-button:hover {
+    background: rgba(2,128,144,0.1);
+    border-color: rgba(2,128,144,0.3);
+  }
+  .upload-button:active {
+    transform: scale(0.98);
+  }
+  .upload-button.loading .loading-bar {
+    width: calc(var(--progress) * 1%);
+  }
+  .upload-button.loading .upload-progress {
+    opacity: 1;
+  }
+  .upload-button.done {
+    background: rgba(2,195,154,0.1) !important;
+    border-color: var(--neon-green) !important;
+  }
+  .upload-button.done .upload-done-icon {
+    opacity: 1 !important;
+    transform: translateY(-50%) translateX(0);
+  }
+  .upload-button.done .upload-text {
+    color: #ffffff;
+    transform: translate(-50%, -50%);
+  }
+  .upload-button.done .upload-border {
+    stroke: var(--neon-green);
+  }
+
+  /* ===========================
+  8. Botones Principales
+  =========================== */
+  .form-actions {
+    display: flex;
+    gap: 15px;
+    justify-content: center;
+    margin-top: 25px;
+  }
+  .form-actions .button {
+    flex: 0;
+    margin: 0 10px;
+  }
+
+  /* ===========================
+  9. Responsividad (Tabletas)
+  =========================== */
+  @media (max-width: 768px) {
+    .modal-content {
+      width: 95%;
+      padding: 20px;
+      max-height: 85vh;
+    }
+    .form-columns-container {
+      grid-template-columns: 1fr;
+      gap: 15px;
+    }
+    .form-column {
+      min-width: 100%;
+      align-items: flex-start;
+    }
+    /* Reducir el tamaño de los botones para tabletas */
+    .button,
+    #close-modal.button,
+    .btn-cancel,
+    .btn-save {
+      width: 100%;
+      min-width: unset;
+      height: 58px;
+      padding: 15px;
+      font-size: 16px;
+    }
+    .state .icon {
+      transform: scale(1);
+    }
+  }
+
+  /* ===========================
+  10. Animaciones Adicionales
+  =========================== */
+  @keyframes particles {
+    0% {
+      opacity: 0;
+      transform: translateX(-50%) translateY(0);
+    }
+    50% { opacity: 1; }
+    100% {
+      opacity: 0;
+      transform: translateX(-50%) translateY(var(--direction));
+    }
+  }
+
+  /* ===========================
+  11. Botón Cancelar Personalizado
+  =========================== */
+  #close-modal.button,
+  .btn-cancel {
+    color: #ffffff !important;  
+    background: linear-gradient(to top, var(--neutral-2), var(--neutral-1));
+    border: none;
+    box-shadow: none;
+    border-radius: var(--radius);
+    padding: 20px;
+    min-width: 200px;
+    height: 68px;
+    font-family: "Galano Grotesque", Poppins, Montserrat, sans-serif;
+    font-size: 18px;
+    font-weight: 600;
+    transition: all 0.3s ease, color 0.3s ease;
+  }
+  #close-modal.button:hover,
+  .btn-cancel:hover {
+    background: rgba(5,102,141,0.2);
+    box-shadow: 0 0 1px 2px rgba(0,0,0,0.3),
+                0 15px 30px rgba(0,0,0,0.3),
+                0 10px 3px -3px rgba(0,0,0,0.1);
+  }
+
+  /* ===========================
+  13. Mejoras Generales
+  =========================== */
+  #entry-form input:focus,
+  #entry-form textarea:focus,
+  #entry-form select:focus {
+    border-color: var(--primary);
+    background: rgba(0, 0, 0, 0.4);
+  }
+  #entry-form input::placeholder,
+  #entry-form textarea::placeholder,
+  #entry-form select::placeholder {
+    color: rgba(255, 255, 255, 0.6);
+  }
+  .radio-inputs-custom {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .radio-custom .name {
+    transition: background 0.2s, color 0.3s;
+  }
+
+  /* ===========================
+  14. Adaptación para pantallas muy pequeñas (móviles)
+  =========================== */
+  @media (max-width: 480px) {
+    .form-columns-container {
+      grid-template-columns: 1fr !important;
+      overflow-x: visible !important;
+    }
+    .form-column {
+      min-width: 100% !important;
+    }
+    
+    /* Hacemos que los botones se distribuyan en columna */
+    .form-actions {
+      flex-direction: column;
+      gap: 10px;
+      align-items: stretch;
+    }
+    
+    /* Cada botón ocupa el 100% del ancho */
+    .form-actions .button {
+      width: 100% !important;
+      margin: 0;
+      /* Conservamos la altura original o se puede ajustar */
+      height: 68px !important;
+      padding: 20px !important;
+      font-size: 18px !important;
+    }
+  }
+
+
+  @media (max-width: 768px) {
+    /* Otros estilos para tabletas... */
+
+    /* Forzamos que los botones se apilen verticalmente */
+    .form-actions {
+      flex-direction: column;
+      gap: 7px;
+      align-items: stretch;
+      justify-content: center;
+    }
+
+    /* Opcional: Si deseas que cada botón ocupe el 100% del ancho */
+    .form-actions .button {
+      width: 100%;
+      margin: 0;
+    }
+  }
+
+/* ===========================
+   15. Estilos para previsualización de imágenes
+========================== */
+
+#preview-container {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap; /* Todas en una misma línea */
+  gap: 10px;
+}
+
+.preview-image {
+  width: 100px;      /* Puedes ajustar este valor */
+  height: auto;
+  margin: 5px;
+  object-fit: cover;
+}

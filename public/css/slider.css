@@ -1,0 +1,209 @@
+/* ============================= */
+/* Estilos Base para el Slider   */
+/* ============================= */
+
+/* Contenedor principal del slider */
+.slider-container {
+  position: relative;
+  width: 100%;
+  height: 70vh;
+  overflow: hidden;
+  background: #000;
+  margin: 2rem 0;
+}
+
+/* Contenedor interno */
+.slider-wrapper {
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+
+/* Cada slide */
+.slide {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  opacity: 0;
+  transition: opacity 1s ease-in-out;
+  background-size: cover;
+  background-position: center;
+}
+
+/* Slide visible */
+.slide.active {
+  opacity: 1;
+  z-index: 2;
+}
+
+/* Fondos de cada slide */
+.slide[data-slide="1"] {
+  background-image: url('https://cdn.businessinsider.es/sites/navi.axelspringer.es/public/media/image/2019/04/finlandia-pais-feliz-mundo.jpg?tf=3840x');
+}
+
+.slide[data-slide="2"] {
+  background-image: url('https://lp-cms-production.imgix.net/2023-03/500pxRF_61786861.jpg?w=1920&h=640&fit=crop&crop=faces%2Cedges&auto=format&q=75');
+}
+
+.slide[data-slide="3"] {
+  background-image: url('https://www.civitatis.com/blog/wp-content/uploads/2022/11/calle-akihabara-tokio.jpg');
+}
+
+/* Contenido de cada slide */
+.slide-content {
+  position: absolute;
+  bottom: 20%;
+  left: 10%;
+  color: #fff;
+}
+
+/* Letras grandes, brillantes y blancas */
+.slide-content h2 {
+  font-size: 5rem;
+  font-weight: 700;
+  color: #fff;
+  text-shadow: 0 0 15px rgba(255, 255, 255, 0.8);
+  margin: 0;
+}
+
+/* Controles del slider */
+.slider-controls {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  right: 0;
+  transform: translateY(-50%);
+  z-index: 100;
+  display: flex;
+  justify-content: space-between;
+  padding: 0 20px;
+  pointer-events: none;
+}
+
+/* Flechas */
+.arrow {
+  pointer-events: all;
+  color: #fff;
+  font-size: 4rem;
+  cursor: pointer;
+  padding: 20px;
+  border-radius: 50%;
+  user-select: none;
+}
+
+/* Dots de navegación */
+.dots-container {
+  position: absolute;
+  bottom: -100%;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 10px;
+  pointer-events: all;
+  z-index: 150;
+}
+
+/* Estilos de los dots */
+.dot {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.7);
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.dot.active {
+  background: #fff;
+  transform: scale(1.4);
+}
+
+/* ============================= */
+/* Media Queries para Todo       */
+/* ============================= */
+
+/* Para pantallas medianas/grandes (máximo 1024px) */
+@media (max-width: 1024px) {
+  .slider-container {
+    height: 65vh;
+  }
+
+  .slide-content {
+    left: 9%;
+    bottom: 19%;
+  }
+
+  .slide-content h2 {
+    font-size: 4.5rem;
+  }
+
+  .arrow {
+    font-size: 3.8rem;
+    padding: 18px;
+  }
+
+  .dots-container {
+    bottom: -70%;
+  }
+  .dot {
+    bottom: -200%;
+  }
+}
+
+/* Para tablets (máximo 768px) */
+@media (max-width: 768px) {
+  .slider-container {
+    height: 50vh;
+  }
+
+  .slide-content {
+    left: 8%;
+    bottom: 18%;
+  }
+
+  .slide-content h2 {
+    font-size: 3rem;
+  }
+
+  .arrow {
+    font-size: 3.5rem;
+    padding: 15px;
+  }
+
+  /* Ajustamos los dots para que se vean mejor */
+  .dots-container {
+    bottom: 200%;
+  }
+}
+
+/* Para dispositivos móviles (máximo 480px) */
+@media (max-width: 480px) {
+  .slider-container {
+    height: 40vh;
+  }
+
+  .slide-content {
+    left: 5%;
+    bottom: 15%;
+  }
+
+  .slide-content h2 {
+    font-size: 2.5rem;
+  }
+
+  .arrow {
+    font-size: 3rem;
+    padding: 10px;
+  }
+
+  .dots-container {
+    bottom: -90%;
+  }
+
+  .dot {
+    width: 12px;
+    height: 12px;
+  }
+}

@@ -1,0 +1,732 @@
+[
+  {
+    "id": 1738925696147,
+    "location": "Paris, Texas, EE. UU.",
+    "date": "2025-02-15",
+    "comments": "jajaja",
+    "lat": 33.6609389,
+    "lon": -95.55551299999999,
+    "category": "aventura",
+    "images": [
+      "/uploads/hombrerosa-1738925696132.jpg",
+      "/uploads/nia-pequea-leyendo-1738925696134.jpg",
+      "/uploads/niatriste-1738925696137.png"
+    ],
+    "createdAt": "2025-02-07T10:54:56.147Z"
+  },
+  {
+    "id": 1738847032410,
+    "location": "Dinamarca",
+    "date": "2025-01-01",
+    "comments": "Dinamarca es una nación nórdica que fusiona historia y modernidad. Su sistema de bienestar, energías renovables e innovador diseño urbano la posicionan como modelo de sostenibilidad, equidad y auténtico progreso.",
+    "lat": 56.26392,
+    "lon": 9.501785,
+    "category": "aventura",
+    "images": [
+      "https://www.paises.net/wp-content/uploads/2023/08/dinamarca-paises.jpg"
+    ],
+    "createdAt": "2025-02-06T13:03:52.410Z"
+  },
+  {
+    "id": 1738841869941,
+    "location": "Ronda, España",
+    "date": "2001-01-01",
+    "comments": "jajaj",
+    "lat": 36.746209,
+    "lon": -5.161225099999999,
+    "category": "aventura",
+    "images": [
+      "/uploads/3x4anarrowstreetinaspanishwhi-1738841869930.png"
+    ],
+    "createdAt": "2025-02-06T11:37:49.941Z"
+  },
+  {
+    "id": 1738786991537,
+    "location": "Calle Júzcar, Málaga, España",
+    "date": "2012-10-10",
+    "comments": "casitas azules",
+    "lat": 36.7419457,
+    "lon": -4.4199123,
+    "category": "cultura",
+    "images": [
+      "https://cdn.holidayguru.es/wp-content/uploads/2017/01/Juzcar-blue-andalusischen-village-in-M%C3%A1laga-iStock-470700412-2_pix2000.jpg"
+    ],
+    "createdAt": "2025-02-05T20:23:11.538Z"
+  },
+  {
+    "id": 1738390067001,
+    "location": "Tokio, Japón",
+    "date": "2024-10-10",
+    "comments": "Experiencia omakase en sushi-bar clandestino. Atún de Ōma en su punto perfecto.",
+    "category": "gastronomia",
+    "images": [
+      "https://images.pexels.com/photos/8951563/pexels-photo-8951563.jpeg"
+    ],
+    "lat": 35.6762,
+    "lon": 139.6503,
+    "createdAt": "2024-09-01T08:00:00Z"
+  },
+  {
+    "id": 1738390067002,
+    "location": "Pirámides de Giza, Egipto",
+    "date": "2023-12-05",
+    "comments": "Noche bajo las estrellas frente a la Esfinge. Historia milenaria en cada piedra.",
+    "category": "cultura",
+    "images": [
+      "https://images.unsplash.com/photo-1503177119275-0aa32b3a9368"
+    ],
+    "lat": 29.9792,
+    "lon": 31.1342,
+    "createdAt": "2023-11-15T17:30:00Z"
+  },
+  {
+    "id": 1738390067003,
+    "location": "Amazonas, Brasil",
+    "date": "2025-03-15",
+    "comments": "Expedición en canoa por el Río Negro. Avistamiento de guacamayos y caimanes.",
+    "category": "aventura",
+    "images": [
+      "https://images.pexels.com/photos/3293148/pexels-photo-3293148.jpeg"
+    ],
+    "lat": -3.4653,
+    "lon": -62.2159,
+    "createdAt": "2025-02-01T06:45:00Z"
+  },
+  {
+    "id": 1738390067004,
+    "location": "Lyon, Francia",
+    "date": "2024-05-22",
+    "comments": "Quenelle de lucio en bouchon tradicional. El alma de la gastronomía francesa.",
+    "category": "gastronomia",
+    "images": [
+      "https://images.unsplash.com/photo-1586788680434-30d324b2d46f"
+    ],
+    "lat": 45.764,
+    "lon": 4.8357,
+    "createdAt": "2024-04-10T12:15:00Z"
+  },
+  {
+    "id": 1738390067005,
+    "location": "Petra, Jordania",
+    "date": "2025-01-18",
+    "comments": "Caminata nocturna por el Siq iluminado con velas. Misterio nabateo en la roca.",
+    "category": "cultura",
+    "images": [
+      "https://images.pexels.com/photos/2422258/pexels-photo-2422258.jpeg"
+    ],
+    "lat": 30.3285,
+    "lon": 35.4444,
+    "createdAt": "2024-12-25T20:00:00Z"
+  },
+  {
+    "id": 1738390067006,
+    "location": "Fiordos Noruegos, Noruega",
+    "date": "2024-07-30",
+    "comments": "Kayak entre glaciares en el Geirangerfjord. Aguas color esmeralda helada.",
+    "category": "aventura",
+    "images": [
+      "https://images.unsplash.com/photo-1580752300992-559f8e0734e0"
+    ],
+    "lat": 62.0997,
+    "lon": 7.095,
+    "createdAt": "2024-06-10T07:20:00Z"
+  },
+  {
+    "id": 1738390067007,
+    "location": "Chiang Mai, Tailandia",
+    "date": "2023-11-08",
+    "comments": "Curso de cocina tailandesa: Pad Thai y curry verde con leche de coco.",
+    "category": "gastronomia",
+    "images": [
+      "https://images.pexels.com/photos/2474661/pexels-photo-2474661.jpeg"
+    ],
+    "lat": 18.7061,
+    "lon": 98.9817,
+    "createdAt": "2023-10-20T09:10:00Z"
+  },
+  {
+    "id": 1738390067011,
+    "location": "Pompeya, Italia",
+    "date": "2023-09-01",
+    "comments": "Recorrido por la ciudad conservada en ceniza volcánica. Frescos romanos intactos.",
+    "category": "cultura",
+    "images": [
+      "https://images.pexels.com/photos/618079/pexels-photo-618079.jpeg"
+    ],
+    "lat": 40.7462,
+    "lon": 14.4989,
+    "createdAt": "2023-08-10T16:25:00Z"
+  },
+  {
+    "id": 1738390067012,
+    "location": "Costa Rica",
+    "date": "2025-08-08",
+    "comments": "Rápidos clase IV en el Río Pacuare. Selva tropical como escenario.",
+    "category": "aventura",
+    "images": [
+      "https://images.unsplash.com/photo-1580238053495-b9720401fd45"
+    ],
+    "lat": 9.7489,
+    "lon": -83.7534,
+    "createdAt": "2025-07-01T11:11:00Z"
+  },
+  {
+    "id": 1738390067013,
+    "location": "Estambul, Turquía",
+    "date": "2024-11-19",
+    "comments": "Desayuno turco completo: mermelada de bergamota, kaymak y simit crocante.",
+    "category": "gastronomia",
+    "images": [
+      "https://images.pexels.com/photos/1775043/pexels-photo-1775043.jpeg"
+    ],
+    "lat": 41.0082,
+    "lon": 28.9784,
+    "createdAt": "2024-10-01T07:30:00Z"
+  },
+  {
+    "id": 1738390067014,
+    "location": "Jerusalén, Israel",
+    "date": "2025-04-05",
+    "comments": "Recorrido interreligioso: Muro de los Lamentos, Iglesia del Santo Sepulcro y Domo de la Roca.",
+    "category": "cultura",
+    "images": [
+      "https://images.unsplash.com/photo-1583407723467-9b2d22504831"
+    ],
+    "lat": 31.7683,
+    "lon": 35.2137,
+    "createdAt": "2025-03-15T18:45:00Z"
+  },
+  {
+    "id": 1738390067015,
+    "location": "Monte Kilimanjaro, Tanzania",
+    "date": "2024-01-25",
+    "comments": "Escalada de 7 días por la ruta Machame. Cima a -20°C con vista al amanecer.",
+    "category": "aventura",
+    "images": [
+      "https://images.pexels.com/photos/3553218/pexels-photo-3553218.jpeg"
+    ],
+    "lat": -3.0674,
+    "lon": 37.3556,
+    "createdAt": "2023-12-10T04:00:00Z"
+  },
+  {
+    "id": 1738390067016,
+    "location": "Lima, Perú",
+    "date": "2023-10-30",
+    "comments": "Ceviche de mantarraya en barranco. Leche de tigre que electriza los sentidos.",
+    "category": "gastronomia",
+    "images": [
+      "https://images.pexels.com/photos/2347311/pexels-photo-2347311.jpeg"
+    ],
+    "lat": -12.0464,
+    "lon": -77.0428,
+    "createdAt": "2023-09-15T13:20:00Z"
+  },
+  {
+    "id": 1738390067017,
+    "location": "Praga, República Checa",
+    "date": "2025-12-01",
+    "comments": "Puente de Carlos al amanecer. Estatuas barrocas y leyendas de alquimistas.",
+    "category": "cultura",
+    "images": [
+      "https://images.unsplash.com/photo-1519677100203-a0e668c92439"
+    ],
+    "lat": 50.0755,
+    "lon": 14.4378,
+    "createdAt": "2025-11-01T09:05:00Z"
+  },
+  {
+    "id": 1738390067020,
+    "location": "Isla de Pascua, Chile",
+    "date": "2024-06-30",
+    "comments": "Moai al atardecer. Enigma rapanui tallado en toba volcánica.",
+    "category": "cultura",
+    "images": [
+      "https://images.unsplash.com/photo-1587502536575-6dfba0a6e017"
+    ],
+    "lat": -27.1127,
+    "lon": -109.3497,
+    "createdAt": "2024-05-15T15:15:00Z"
+  },
+  {
+    "id": 1738390067021,
+    "location": "Roma, Italia",
+    "date": "2025-04-15",
+    "comments": "Coliseo Romano al atardecer. Arena de gladiadores y arcos milenarios.",
+    "category": "cultura",
+    "images": [
+      "https://images.unsplash.com/photo-1552832230-c0197dd311b5"
+    ],
+    "lat": 41.8902,
+    "lon": 12.4924,
+    "createdAt": "2025-03-01T09:00:00Z"
+  },
+  {
+    "id": 1738390067022,
+    "location": "Bangkok, Tailandia",
+    "date": "2024-08-30",
+    "comments": "Pad Thai en puestos callejeros de Khao San Road. Sabores picantes y lima kaffir.",
+    "category": "gastronomia",
+    "images": [
+      "https://images.pexels.com/photos/2474661/pexels-photo-2474661.jpeg"
+    ],
+    "lat": 13.7563,
+    "lon": 100.5018,
+    "createdAt": "2024-07-10T12:30:00Z"
+  },
+  {
+    "id": 1738390067023,
+    "location": "Montañas Rocosas, Canadá",
+    "date": "2024-12-10",
+    "comments": "Escalada en hielo en el Cañón Johnston. Temperaturas bajo cero y paredes verticales.",
+    "category": "aventura",
+    "images": [
+      "https://images.unsplash.com/photo-1580238053495-b9720401fd45"
+    ],
+    "lat": 51.4968,
+    "lon": -116.4861,
+    "createdAt": "2024-10-25T07:15:00Z"
+  },
+  {
+    "id": 1738390067024,
+    "location": "Moscú, Rusia",
+    "date": "2025-01-20",
+    "comments": "Catedral de San Basilio: cúpulas color caramelo en la Plaza Roja.",
+    "category": "cultura",
+    "images": [
+      "https://images.unsplash.com/photo-1596484552834-6a58f850e0a1"
+    ],
+    "lat": 55.7525,
+    "lon": 37.6231,
+    "createdAt": "2024-12-05T14:20:00Z"
+  },
+  {
+    "id": 1738390067025,
+    "location": "Ciudad de México, México",
+    "date": "2024-05-05",
+    "comments": "Tacos al pastor en El Huequito. Piña, cilantro y salsa verde ahumada.",
+    "category": "gastronomia",
+    "images": [
+      "https://images.pexels.com/photos/461428/pexels-photo-461428.jpeg"
+    ],
+    "lat": 19.4326,
+    "lon": -99.1332,
+    "createdAt": "2024-04-01T11:45:00Z"
+  },
+  {
+    "id": 1738390067026,
+    "location": "Sídney, Australia",
+    "date": "2025-03-12",
+    "comments": "Surf en Bondi Beach. Olas de 3 metros y arena dorada.",
+    "category": "aventura",
+    "images": [
+      "https://images.pexels.com/photos/2486168/pexels-photo-2486168.jpeg"
+    ],
+    "lat": -33.8688,
+    "lon": 151.2093,
+    "createdAt": "2025-01-15T06:00:00Z"
+  },
+  {
+    "id": 1738390067027,
+    "location": "Pekín, China",
+    "date": "2024-10-01",
+    "comments": "Pato laqueado en Quanjude. Piel crujiente y tortillas caseras.",
+    "category": "gastronomia",
+    "images": [
+      "https://images.pexels.com/photos/1055050/pexels-photo-1055050.jpeg"
+    ],
+    "lat": 39.9042,
+    "lon": 116.4074,
+    "createdAt": "2024-08-20T18:30:00Z"
+  },
+  {
+    "id": 1738390067028,
+    "location": "Marrakech, Marruecos",
+    "date": "2025-02-05",
+    "comments": "Cuscús real con cordero en la Medina. Especias de zoco antiguo.",
+    "category": "gastronomia",
+    "images": [
+      "https://images.unsplash.com/photo-1517825738774-7de9363ef735"
+    ],
+    "lat": 31.6295,
+    "lon": -7.9811,
+    "createdAt": "2024-12-10T13:10:00Z"
+  },
+  {
+    "id": 1738390067032,
+    "location": "Gran Cañón, EE. UU.",
+    "date": "2025-05-25",
+    "comments": "Ruta en helicóptero por el cañón rojo. Acantilados de 1.6 mil millones de años.",
+    "category": "aventura",
+    "images": [
+      "https://images.unsplash.com/photo-1509316785289-025f5b846b35"
+    ],
+    "lat": 36.1069,
+    "lon": -112.1129,
+    "createdAt": "2025-03-10T07:30:00Z"
+  },
+  {
+    "id": 1738390067033,
+    "location": "Viena, Austria",
+    "date": "2024-11-14",
+    "comments": "Sachertorte en el Hotel Sacher. Capas de chocolate y mermelada de albaricoque.",
+    "category": "gastronomia",
+    "images": [
+      "https://images.pexels.com/photos/3023476/pexels-photo-3023476.jpeg"
+    ],
+    "lat": 48.2082,
+    "lon": 16.3738,
+    "createdAt": "2024-09-25T15:00:00Z"
+  },
+  {
+    "id": 1738390067034,
+    "location": "Isla de Pascua, Chile",
+    "date": "2025-10-12",
+    "comments": "Moai al amanecer. Estatuas de piedra volcánica en Rano Raraku.",
+    "category": "cultura",
+    "images": [
+      "https://images.unsplash.com/photo-1587502536575-6dfba0a6e017"
+    ],
+    "lat": -27.1127,
+    "lon": -109.3497,
+    "createdAt": "2025-08-01T05:50:00Z"
+  },
+  {
+    "id": 1738390067035,
+    "location": "Alpes Suizos, Suiza",
+    "date": "2024-02-28",
+    "comments": "Esquí fuera de pista en Zermatt. Nieve virgen y vistas al Matterhorn.",
+    "category": "aventura",
+    "images": [
+      "https://images.pexels.com/photos/1368382/pexels-photo-1368382.jpeg"
+    ],
+    "lat": 46.0207,
+    "lon": 7.7491,
+    "createdAt": "2023-12-15T06:25:00Z"
+  },
+  {
+    "id": 1738390067036,
+    "location": "Estambul, Turquía",
+    "date": "2025-07-07",
+    "comments": "Mercado de las Especias: lokum de pistacho y café turco en grano.",
+    "category": "gastronomia",
+    "images": [
+      "https://images.pexels.com/photos/1775043/pexels-photo-1775043.jpeg"
+    ],
+    "lat": 41.0082,
+    "lon": 28.9784,
+    "createdAt": "2025-05-20T16:40:00Z"
+  },
+  {
+    "id": 1738390067038,
+    "location": "París, Francia",
+    "date": "2025-12-24",
+    "comments": "Croissants en Boulangerie Julien. Mantequilla AOP y capas doradas.",
+    "category": "gastronomia",
+    "images": [
+      "https://images.pexels.com/photos/1907229/pexels-photo-1907229.jpeg"
+    ],
+    "lat": 48.8566,
+    "lon": 2.3522,
+    "createdAt": "2025-10-10T09:15:00Z"
+  },
+  {
+    "id": 1738390067039,
+    "location": "Kioto, Japón",
+    "date": "2024-04-01",
+    "comments": "Ceremonia del té en templo Ryoan-ji. Elegancia y minimalismo zen.",
+    "category": "cultura",
+    "images": [
+      "https://images.pexels.com/photos/2325446/pexels-photo-2325446.jpeg"
+    ],
+    "lat": 35.0116,
+    "lon": 135.768,
+    "createdAt": "2024-02-10T08:00:00Z"
+  },
+  {
+    "id": 1738390067040,
+    "location": "Cape Town, Sudáfrica",
+    "date": "2025-11-30",
+    "comments": "Escalada en Table Mountain. Vistas al océano Atlántico desde la cima.",
+    "category": "aventura",
+    "images": [
+      "https://images.pexels.com/photos/2594477/pexels-photo-2594477.jpeg"
+    ],
+    "lat": -33.9249,
+    "lon": 18.4241,
+    "createdAt": "2025-09-15T07:50:00Z"
+  },
+  {
+    "id": 1738390067041,
+    "location": "Hanoi, Vietnam",
+    "date": "2025-03-10",
+    "comments": "Pho Bo en caldo de 12 horas. Hierbas frescas y noodles de arroz.",
+    "category": "gastronomia",
+    "images": [
+      "https://images.pexels.com/photos/3023476/pexels-photo-3023476.jpeg"
+    ],
+    "lat": 21.0278,
+    "lon": 105.8342,
+    "createdAt": "2025-01-15T08:00:00Z"
+  },
+  {
+    "id": 1738390067043,
+    "location": "Patagonia, Chile",
+    "date": "2025-11-05",
+    "comments": "Trekking en Torres del Paine. Glaciares milenarios y cóndores en vuelo.",
+    "category": "aventura",
+    "images": [
+      "https://images.unsplash.com/photo-1580238053495-b9720401fd45"
+    ],
+    "lat": -51.2594,
+    "lon": -72.3073,
+    "createdAt": "2025-09-10T07:45:00Z"
+  },
+  {
+    "id": 1738390067044,
+    "location": "Marrakech, Marruecos",
+    "date": "2024-04-22",
+    "comments": "Tajín de cordero con ciruelas en la Medina. Especias tostadas en mercado.",
+    "category": "gastronomia",
+    "images": [
+      "https://images.unsplash.com/photo-1517825738774-7de9363ef735"
+    ],
+    "lat": 31.6295,
+    "lon": -7.9811,
+    "createdAt": "2024-02-10T16:20:00Z"
+  },
+  {
+    "id": 1738390067045,
+    "location": "Petra, Jordania",
+    "date": "2025-02-14",
+    "comments": "Tesoro de Al-Khazneh iluminado por antorchas. Arquitectura nabatea en roca.",
+    "category": "cultura",
+    "images": [
+      "https://images.pexels.com/photos/2422258/pexels-photo-2422258.jpeg"
+    ],
+    "lat": 30.3285,
+    "lon": 35.4444,
+    "createdAt": "2024-12-25T18:00:00Z"
+  },
+  {
+    "id": 1738390067046,
+    "location": "Alpes Suizos, Suiza",
+    "date": "2024-12-30",
+    "comments": "Esquí extremo en Zermatt. Pendientes de 45° con vista al Matterhorn.",
+    "category": "aventura",
+    "images": [
+      "https://images.pexels.com/photos/1368382/pexels-photo-1368382.jpeg"
+    ],
+    "lat": 46.0207,
+    "lon": 7.7491,
+    "createdAt": "2024-10-05T09:10:00Z"
+  },
+  {
+    "id": 1738390067047,
+    "location": "Estambul, Turquía",
+    "date": "2025-06-08",
+    "comments": "Desayuno turco: mermelada de higo, kaymak y simit recién horneado.",
+    "category": "gastronomia",
+    "images": [
+      "https://images.pexels.com/photos/1775043/pexels-photo-1775043.jpeg"
+    ],
+    "lat": 41.0082,
+    "lon": 28.9784,
+    "createdAt": "2025-04-20T14:15:00Z"
+  },
+  {
+    "id": 1738390067048,
+    "location": "Río de Janeiro, Brasil",
+    "date": "2025-01-01",
+    "comments": "Cristo Redentor al amanecer. Vistas panorámicas de Copacabana.",
+    "category": "cultura",
+    "images": [
+      "https://images.unsplash.com/photo-1483729558449-99ef09a8c325"
+    ],
+    "lat": -22.9519,
+    "lon": -43.2105,
+    "createdAt": "2024-10-10T05:30:00Z"
+  },
+  {
+    "id": 1738390067049,
+    "location": "Nepal",
+    "date": "2024-10-20",
+    "comments": "Trekking al Campo Base del Everest. Oxígeno escaso y paisajes himalayos.",
+    "category": "aventura",
+    "images": [
+      "https://images.pexels.com/photos/3553218/pexels-photo-3553218.jpeg"
+    ],
+    "lat": 27.9881,
+    "lon": 86.925,
+    "createdAt": "2024-08-01T06:00:00Z"
+  },
+  {
+    "id": 1738390067050,
+    "location": "Lima, Perú",
+    "date": "2025-07-12",
+    "comments": "Ceviche de conchas negras en Mercado de Surquillo. Ají limo y camote.",
+    "category": "gastronomia",
+    "images": [
+      "https://images.pexels.com/photos/2347311/pexels-photo-2347311.jpeg"
+    ],
+    "lat": -12.0464,
+    "lon": -77.0428,
+    "createdAt": "2025-05-01T12:45:00Z"
+  },
+  {
+    "id": 1738390067051,
+    "location": "Pompeya, Italia",
+    "date": "2024-09-15",
+    "comments": "Frescos romanos conservados por ceniza. Historia petrificada del Vesubio.",
+    "category": "cultura",
+    "images": [
+      "https://images.pexels.com/photos/618079/pexels-photo-618079.jpeg"
+    ],
+    "lat": 40.7462,
+    "lon": 14.4989,
+    "createdAt": "2024-06-20T10:20:00Z"
+  },
+  {
+    "id": 1738390067052,
+    "location": "Costa Rica",
+    "date": "2025-08-25",
+    "comments": "Rápidos clase IV en el Río Pacuare. Selva tropical como escenario.",
+    "category": "aventura",
+    "images": [
+      "https://images.pexels.com/photos/1603650/pexels-photo-1603650.jpeg"
+    ],
+    "lat": 9.7489,
+    "lon": -83.7534,
+    "createdAt": "2025-06-10T08:30:00Z"
+  },
+  {
+    "id": 1738390067054,
+    "location": "Egipto",
+    "date": "2025-04-05",
+    "comments": "Pirámides de Giza al amanecer. Secretos faraónicos en la arena.",
+    "category": "cultura",
+    "images": [
+      "https://images.unsplash.com/photo-1503177119275-0aa32b3a9368"
+    ],
+    "lat": 29.9792,
+    "lon": 31.1342,
+    "createdAt": "2025-01-10T07:00:00Z"
+  },
+  {
+    "id": 1738390067055,
+    "location": "Islandia",
+    "date": "2024-07-14",
+    "comments": "Cuevas de hielo en Vatnajökull. Cristales azules bajo glaciares.",
+    "category": "aventura",
+    "images": [
+      "https://images.pexels.com/photos/2594477/pexels-photo-2594477.jpeg"
+    ],
+    "lat": 64.9631,
+    "lon": -19.0208,
+    "createdAt": "2024-05-01T09:50:00Z"
+  },
+  {
+    "id": 1738390067056,
+    "location": "París, Francia",
+    "date": "2025-12-25",
+    "comments": "Croissant en Boulangerie Julien. Capas doradas con mantequilla AOP.",
+    "category": "gastronomia",
+    "images": [
+      "https://images.pexels.com/photos/1907229/pexels-photo-1907229.jpeg"
+    ],
+    "lat": 48.8566,
+    "lon": 2.3522,
+    "createdAt": "2025-10-30T15:25:00Z"
+  },
+  {
+    "id": 1738390067057,
+    "location": "Kioto, Japón",
+    "date": "2024-04-03",
+    "comments": "Ceremonia del té en templo Ryoan-ji. Zen y minimalismo en movimiento.",
+    "category": "cultura",
+    "images": [
+      "https://images.pexels.com/photos/2325446/pexels-photo-2325446.jpeg"
+    ],
+    "lat": 35.0116,
+    "lon": 135.768,
+    "createdAt": "2024-02-01T10:40:00Z"
+  },
+  {
+    "id": 1738390067058,
+    "location": "Cape Town, Sudáfrica",
+    "date": "2025-10-10",
+    "comments": "Escalada en Table Mountain. Vistas al Atlántico desde acantilados.",
+    "category": "aventura",
+    "images": [
+      "https://images.pexels.com/photos/2594477/pexels-photo-2594477.jpeg"
+    ],
+    "lat": -33.9249,
+    "lon": 18.4241,
+    "createdAt": "2025-07-20T06:15:00Z"
+  },
+  {
+    "id": 1738390067059,
+    "location": "Barcelona, España",
+    "date": "2024-06-12",
+    "comments": "Paella marinera en Barceloneta. Azafrán y mariscos frescos.",
+    "category": "gastronomia",
+    "images": [
+      "https://images.pexels.com/photos/128388/pexels-photo-128388.jpeg"
+    ],
+    "lat": 41.3851,
+    "lon": 2.1734,
+    "createdAt": "2024-04-01T13:00:00Z"
+  },
+  {
+    "id": 1738390067060,
+    "location": "Angkor Wat, Camboya",
+    "date": "2025-03-28",
+    "comments": "Amanecer en templos hindúes. Siluetas reflejadas en aguas sagradas.",
+    "category": "cultura",
+    "images": [
+      "https://images.unsplash.com/photo-1542662565-7e4b66bae529"
+    ],
+    "lat": 13.4125,
+    "lon": 103.867,
+    "createdAt": "2025-01-05T04:20:00Z"
+  },
+  {
+    "id": 1738599672372,
+    "location": "Angola",
+    "date": "2015-10-20",
+    "comments": "negritos",
+    "lat": -11.202692,
+    "lon": 17.873887,
+    "category": "aventura",
+    "images": [
+      "https://media.istockphoto.com/id/155439315/es/foto/avi%C3%B3n-de-pasajeros-volando-sobre-nubes-durante-la-puesta-del-sol.jpg?s=612x612&w=0&k=20&c=E6zuCTGyaqlKa7_UDwg6vDVNFe5U53tUJZRhinQ02gg="
+    ],
+    "createdAt": "2025-02-03T16:21:12.372Z"
+  },
+  {
+    "id": 1738599810088,
+    "location": "México",
+    "date": "2024-02-08",
+    "comments": "don ramon",
+    "lat": 23.634501,
+    "lon": -102.552784,
+    "category": "aventura",
+    "images": [
+      "/uploads/chavo-del-8-1738599810081.jpg"
+    ],
+    "createdAt": "2025-02-03T16:23:30.088Z"
+  },
+  {
+    "id": 1738666381225,
+    "location": "Punta Arenas, Chile",
+    "date": "2014-10-20",
+    "comments": "EL JUANJO",
+    "lat": -53.1633845,
+    "lon": -70.9078263,
+    "category": "aventura",
+    "images": [
+      "https://media.istockphoto.com/id/155439315/es/foto/avi%C3%B3n-de-pasajeros-volando-sobre-nubes-durante-la-puesta-del-sol.jpg?s=612x612&w=0&k=20&c=E6zuCTGyaqlKa7_UDwg6vDVNFe5U53tUJZRhinQ02gg="
+    ],
+    "createdAt": "2025-02-04T10:53:01.225Z"
+  }
+]

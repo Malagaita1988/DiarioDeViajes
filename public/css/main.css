@@ -1,0 +1,382 @@
+/* Importar fuente 'Poppins' desde Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
+
+/* Variables CSS para colores */
+:root {
+    --color-principal: #028090;
+    --color-secundario: #05668d;
+    --color-acento: #02c39a;
+    --color-error: #d90429;
+    --color-fondo: #ffffff;
+    --color-texto: #ffffff;
+    --color-hover-acento: #02c39a;
+    --color-hover-error: #ef233c;
+    --color-favorito: #ff5a5f;
+    --color-favorito-activo: red;
+    --sombra-base: 0 4px 6px rgba(0, 0, 0, 0.1);
+    --sombra-hover: 0 8px 16px rgba(0, 0, 0, 0.2);
+    --transicion: 0.3s ease-in-out;
+}
+
+/* Estilos Generales */
+body {
+    font-family: 'Poppins', sans-serif;
+    margin: 0;
+    padding: 0;
+    color: #333;
+    background: 
+        radial-gradient(
+            circle at 50% 70%,
+            rgba(255, 245, 238, 0.9) 0%,
+            rgba(224, 235, 235, 0.9) 30%,
+            rgba(178, 206, 219, 0.8) 60%,
+            rgba(138, 187, 216, 0.7) 100%
+        ),
+        linear-gradient(
+            15deg,
+            #F0F5FF 0%,
+            #E6F0FF 100%
+        );
+    background-blend-mode: multiply;
+    background-attachment: fixed;
+}
+
+/* Layout Principal */
+main {
+    flex: 1;
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+/* Barra de Búsqueda */
+#search-bar {
+    margin-bottom: 1.5rem;
+    text-align: center;
+}
+
+#search-input {
+    width: 100%;
+    max-width: 500px;
+    padding: 0.8rem;
+    border: 2px solid var(--color-principal);
+    border-radius: 10px;
+    font-size: 1rem;
+    transition: box-shadow var(--transicion);
+}
+
+#search-input:focus {
+    box-shadow: 0 0 10px rgba(2, 128, 144, 0.8);
+    outline: none;
+}
+
+/* Contenedor de Entradas */
+#entries-container {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.5rem;
+    padding: 2rem;
+}
+
+.entry {
+    width: 100%;
+    aspect-ratio: 1 / 1.5;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    position: relative;
+    border-radius: 10px;
+    box-shadow: var(--sombra-base);
+    transition: transform var(--transicion), box-shadow var(--transicion);
+    background: linear-gradient(
+        160deg,
+        var(--color-secundario) 40%,
+        var(--color-principal) 100%
+    );
+}
+
+.entry:hover {
+    transform: translateY(-10px);
+    box-shadow: var(--sombra-hover);
+}
+
+/* Contenedor de la imagen y marca de agua */
+.entry-image-container {
+    position: relative;
+    width: 100%;
+    height: 60%; /* La imagen ocupará el 60% de la tarjeta */
+}
+
+.entry-image-container .entry-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.entry-image-container .entry-watermark {
+    position: absolute;
+    bottom: 8px;
+    right: 8px;
+    font-size: 1rem;
+    color: rgba(255, 255, 255, 0.8);
+    background: rgba(0, 0, 0, 0.4);
+    padding: 0.2rem 0.5rem;
+    border-radius: 5px;
+    pointer-events: none;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+/* Área de contenido: ocupa el 40% restante */
+.entry-content {
+    padding: 0.5rem;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    background: linear-gradient(
+        180deg,
+        rgba(0, 0, 0, 0.2),
+        transparent
+    );
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+}
+
+/* Título: se muestra completo (se trunca si es demasiado largo) */
+.entry-content h3 {
+    margin: 0 0 0.3rem 0;
+    font-size: 1.5rem;
+    color: var(--color-acento);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* Truncado para comentarios y fecha (solo en vista resumen) */
+.entry-comment,
+.entry-date {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 15ch;
+    margin: 0;
+    color: var(--color-texto);
+    font-size: 0.9rem;
+    line-height: 1.4;
+}
+
+/* Área de botones */
+.entry-buttons {
+    display: flex;
+    justify-content: space-between;
+    padding: 0.5rem;
+    border-top: 1px solid #ddd;
+    background: var(--color-principal);
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    min-height: 40px;
+    position: relative;
+    z-index: 1;
+    margin-top: auto;
+}
+
+.view-map-button,
+.view-more-button {
+    border: none;
+    padding: 0.4rem 0.8rem;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 0.8rem;
+    transition: background-color var(--transicion), transform var(--transicion);
+    background-color: var(--color-secundario);
+    color: var(--color-texto);
+    flex: 1;
+    text-align: center;
+    min-width: 80px;
+}
+
+.view-map-button:hover,
+.view-more-button:hover {
+    background-color: var(--color-acento);
+    transform: scale(1.05);
+}
+
+/* Botón de Favoritos */
+.favorite-entry-button {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+    color: var(--color-favorito);
+    z-index: 2;
+    transition: transform var(--transicion), color var(--transicion);
+}
+
+.favorite-entry-button:hover {
+    transform: scale(1.2);
+    color: var(--color-favorito-activo);
+}
+
+.favorite-entry-button.favorited {
+    color: var(--color-favorito-activo);
+}
+
+/* Botón de eliminar */
+.delete-entry-button {
+    position: absolute;
+    top: 0.5rem;
+    right: 0.5rem;
+    font-size: clamp(1rem, 2vw, 1rem);
+    line-height: 1;
+    background-color: transparent;
+    border: none;
+    color: transparent;
+    transition: color 0.2s;
+}
+
+.delete-entry-button:hover {
+    color: #ff0000;
+}
+
+/* Botón "Ver más/Ver menos" (paginación) */
+#toggle-button-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+#toggle-entries-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    background: var(--color-principal);
+    border: 2px solid var(--color-acento);
+    padding: 0.8rem 1.5rem;
+    border-radius: 30px;
+    transition: all var(--transicion);
+    font-size: 1rem;
+    color: var(--color-texto);
+    box-shadow: var(--sombra-base);
+    font-weight: 600;
+    letter-spacing: 0.5px;
+}
+
+#toggle-entries-button:hover {
+    transform: translateY(-2px);
+    background: var(--color-acento);
+    box-shadow: var(--sombra-hover);
+}
+
+.main__scroll-box svg {
+    width: 16px;
+    height: 16px;
+    fill: var(--color-texto);
+    transition: transform var(--transicion);
+}
+
+#toggle-entries-button.rotated .main__scroll-box svg {
+    transform: rotate(180deg);
+}
+
+.main__scroll-text {
+    font-size: 1rem;
+    color: var(--color-texto);
+    white-space: nowrap;
+}
+
+/* Media Queries para Responsividad */
+@media (max-width: 1200px) {
+    #entries-container {
+        grid-template-columns: repeat(3, 1fr);
+    }
+    .entry-content h3 {
+        font-size: 1.1rem;
+    }
+    .entry-comment,
+    .entry-date {
+        font-size: 0.85rem;
+    }
+}
+
+@media (max-width: 992px) {
+    #entries-container {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    .entry {
+        aspect-ratio: unset;
+        height: auto;
+    }
+    .entry-content h3 {
+        font-size: 1rem;
+    }
+    .entry-comment,
+    .entry-date {
+        font-size: 0.8rem;
+    }
+    #toggle-entries-button {
+        padding: 0.5rem 1rem;
+        font-size: 0.95rem;
+    }
+}
+
+@media (max-width: 768px) {
+    #entries-container {
+        grid-template-columns: 1fr;
+    }
+    .entry {
+        aspect-ratio: unset;
+        height: auto;
+    }
+    .entry-content h3 {
+        font-size: 0.9rem;
+    }
+    .entry-comment,
+    .entry-date {
+        font-size: 0.75rem;
+    }
+    .entry-buttons button {
+        font-size: 0.7rem;
+        padding: 0.3rem 0.6rem;
+    }
+    #toggle-entries-button {
+        padding: 0.4rem 0.8rem;
+        font-size: 0.9rem;
+    }
+}
+
+@media (max-width: 480px) {
+    #entries-container {
+        gap: 1rem;
+        padding: 1rem;
+    }
+    .entry-content h3 {
+        font-size: 0.8rem;
+    }
+    .entry-comment,
+    .entry-date {
+        font-size: 0.7rem;
+    }
+    .entry-buttons {
+        flex-direction: column;
+        gap: 0.5rem;
+        padding: 0.5rem;
+        min-height: 60px;
+    }
+    .entry-buttons button {
+        font-size: 0.6rem;
+        padding: 0.3rem 0.6rem;
+        width: 100%;
+        min-width: 80px;
+    }
+    #toggle-entries-button {
+        padding: 0.3rem 0.6rem;
+        font-size: 0.8rem;
+    }
+}

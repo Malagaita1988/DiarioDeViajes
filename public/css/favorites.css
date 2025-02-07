@@ -1,0 +1,272 @@
+/* Configuración general para el contenedor */
+.favorites-wrapper {
+    position: fixed;
+    right: 10px;
+    top: 10px; /* Mantener en el header fijo */
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+    z-index: 1000;
+}
+
+/* Ítem Favoritos */
+.favorite-item {
+    position: relative;
+    width: 80px; /* Hacer el corazón más grande */
+    height: 80px;
+    background: transparent;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    cursor: pointer;
+}
+
+.favorite-item:hover {
+    transform: scale(2); /* Aumentar el efecto al hover */
+
+}
+
+.trigger {
+    font-size: 2rem; /* Aumentar el tamaño del icono */
+    background: none;
+    border: none;
+    cursor: pointer;
+    position: relative;
+    color: white;
+}
+
+.trigger .icon {
+    position: relative;
+    font-size: 2.5rem;
+}
+
+.trigger #favorites-counter {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 1rem;
+    color: white;
+    font-weight: bold;
+}
+
+/* Botón de la papelera */
+.bin-button {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    width: 55px;
+    height: 55px;
+    border-radius: 50%;
+    background-color: rgb(255, 95, 95);
+    cursor: pointer;
+    border: 2px solid rgb(255, 201, 201);
+    -webkit-transition-duration: 0.3s;
+    transition-duration: 0.3s;
+    position: absolute;
+    top: 100px; /* Ajustar para que aparezca bajo el corazón */
+    left: 50%;
+    transform: translateX(-50%);
+    opacity: 0;
+    pointer-events: none;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3); /* Sombra adicional */
+}
+
+.favorite-item:hover + .bin-button, .bin-button:hover {
+    opacity: 1; /* Mostrar la papelera al hover del corazón o de la papelera misma */
+    pointer-events: auto; /* Habilitar interacción */
+}
+
+.bin-button:hover {
+    background-color: rgb(255, 0, 0); /* Fondo más oscuro al hover */
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.4); /* Sombra más intensa */
+}
+
+.bin-button:active {
+    -webkit-transform: scale(0.9);
+    -ms-transform: scale(0.9);
+    transform: scale(0.9);
+}
+
+/* Parte superior de la papelera */
+.bin-top {
+    width: 17px;
+    -webkit-transform-origin: right;
+    -ms-transform-origin: right;
+    transform-origin: right;
+    -webkit-transition-duration: 0.3s;
+    transition-duration: 0.3s;
+    z-index: 2;
+}
+
+.bin-button:hover .bin-top {
+    -webkit-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+    transform: rotate(45deg);
+}
+
+/* Parte inferior de la papelera */
+.bin-bottom {
+    width: 15px;
+    z-index: 2;
+    fill: white;
+}
+
+/* Basura animada */
+.garbage {
+    position: absolute;
+    width: 14px;
+    height: auto;
+    z-index: 1;
+    opacity: 0;
+    -webkit-transition: all 0.3s;
+    transition: all 0.3s;
+}
+
+.bin-button:hover .garbage {
+    -webkit-animation: throw 0.4s linear;
+    animation: throw 0.4s linear;
+}
+
+@-webkit-keyframes throw {
+    from {
+        -webkit-transform: translate(-400%, -700%);
+        transform: translate(-400%, -700%);
+        opacity: 0;
+    }
+    to {
+        -webkit-transform: translate(0%, 0%);
+        transform: translate(0%, 0%);
+        opacity: 1;
+    }
+}
+
+@keyframes throw {
+    from {
+        -webkit-transform: translate(-400%, -700%);
+        transform: translate(-400%, -700%);
+        opacity: 0;
+    }
+    to {
+        -webkit-transform: translate(0%, 0%);
+        transform: translate(0%, 0%);
+        opacity: 1;
+    }
+}
+
+/* Tooltip */
+.tooltip-content {
+    position: absolute;
+    bottom: -35px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(0, 0, 0, 0.7);
+    color: white;
+    font-size: 12px;
+    padding: 5px 8px;
+    border-radius: 5px;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.2);
+}
+
+.bin-button:hover .tooltip-content {
+    opacity: 1; /* Mostrar el tooltip al hover sobre la papelera */
+    pointer-events: auto; /* Permitir interacción */
+}
+
+.tooltip-heart {
+    position: absolute;
+    bottom: 15px; /* Ajustar posición más cerca del corazón */
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(255, 0, 0, 0.5); /* Fondo rojo más transparente */
+    color: white;
+    font-size: 8px; /* Reducir el tamaño de la fuente */
+    padding: 3px 6px; /* Tamaño reducido */
+    border-radius: 3px;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease, transform 0.3s ease;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1); /* Sombra más ligera */
+    z-index: 10; /* Asegurar que esté por encima de otros elementos */
+}
+
+.favorite-item:hover .tooltip-heart {
+    opacity: 1;
+    transform: translateX(-50%) translateY(-2px); /* Efecto sutil de movimiento */
+    pointer-events: auto;
+}
+
+/* Añade esto al final de tu CSS */
+@media screen and (max-width: 1024px) {
+    .favorites-wrapper,
+    .favorite-item,
+    .bin-button,
+    .tooltip-heart,
+    .tooltip-content {
+        display: none !important;
+    }
+}
+
+/* Versión optimizada del CSS existente con correcciones */
+.favorites-wrapper {
+    position: fixed;
+    right: 10px;
+    top: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+    z-index: 1000;
+}
+
+.favorite-item {
+    position: relative;
+    width: 80px;
+    height: 80px;
+    background: transparent;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    cursor: pointer;
+}
+
+/* ... (mantén todo tu CSS existente igual) ... */
+
+/* Media Queries para ocultar en móviles/tablets */
+@media (max-width: 1024px) {
+    .favorites-wrapper {
+        display: none;
+    }
+    
+    .favorite-item,
+    .bin-button,
+    .tooltip-heart,
+    .tooltip-content {
+        display: none !important;
+        opacity: 0 !important;
+        pointer-events: none !important;
+    }
+}
+
+/* Ajustes adicionales para móviles pequeños */
+@media (max-width: 480px) {
+    .favorites-wrapper {
+        display: none;
+    }
+}
