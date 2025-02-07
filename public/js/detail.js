@@ -1,4 +1,8 @@
-// detail.js
+// details.js
+
+// Se obtiene API_BASE_URL desde el objeto global (por ejemplo, definido en config.js)
+// Si no está definida, se usa 'http://localhost:4000' por defecto.
+const API_BASE_URL = window.API_BASE_URL || 'http://localhost:4000';
 
 function verMas(id) {
   // Buscamos la entrada en el arreglo global window.allEntries
@@ -7,16 +11,21 @@ function verMas(id) {
 
   console.log("Entry images:", entry.images);
 
-  // La imagen principal se toma como la primera imagen
+  // La imagen principal se toma como la primera imagen.
+  // Si la imagen no es una URL absoluta, se antepone API_BASE_URL (agregando la barra "/" si es necesaria)
   const mainImageSrc = (entry.images && entry.images.length > 0)
-    ? (entry.images[0].startsWith('http') ? entry.images[0] : `http://localhost:4000${entry.images[0]}`)
+    ? (entry.images[0].startsWith('http')
+         ? entry.images[0]
+         : `${API_BASE_URL}${entry.images[0].startsWith('/') ? '' : '/'}${entry.images[0]}`)
     : 'placeholder.jpg';
 
   /* Construimos el carrusel con todas las imágenes (si hay más de una)
      para poder actualizar la imagen principal al navegar. */
   const carouselImagesArray = (entry.images && entry.images.length > 1)
     ? entry.images.map((image, index) => {
-        const src = image.startsWith('http') ? image : `http://localhost:4000${image}`;
+        const src = image.startsWith('http')
+          ? image
+          : `${API_BASE_URL}${image.startsWith('/') ? '' : '/'}${image}`;
         return `<img src="${src}" alt="${entry.location}" class="detail-image extra-image" data-index="${index}" loading="lazy">`;
       })
     : [];
@@ -35,7 +44,7 @@ function verMas(id) {
 
   /* Estructura del modal:
        - La imagen principal se muestra en .detail-image-container.
-       - La marca de agua (categoría) se ha colocado dentro de .detail-image-container para superponerse a la imagen.
+       - La marca de agua (categoría) se superpone a la imagen.
        - El carrusel permite actualizar la imagen principal.
   */
   const detailModal = document.createElement("div");
@@ -124,3 +133,5 @@ function initCarousel() {
     updateCarousel();
   });
 }
+
+
