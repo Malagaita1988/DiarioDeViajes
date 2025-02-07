@@ -1,8 +1,12 @@
 // details.js
 
-// Se obtiene API_BASE_URL desde el objeto global (por ejemplo, definido en config.js)
-// Si no está definida, se usa 'http://localhost:4000' por defecto.
-const API_BASE_URL = window.API_BASE_URL || 'http://localhost:4000';
+// Si window.API_BASE_URL no está definida (por ejemplo, si config.js no se cargó),
+// se asigna un valor por defecto para desarrollo.
+if (typeof window.API_BASE_URL === "undefined") {
+  window.API_BASE_URL = "http://localhost:4000";
+}
+// Creamos una variable local que referencie la URL base.
+const API_BASE_URL_LOCAL = window.API_BASE_URL;
 
 function verMas(id) {
   // Buscamos la entrada en el arreglo global window.allEntries
@@ -12,11 +16,11 @@ function verMas(id) {
   console.log("Entry images:", entry.images);
 
   // La imagen principal se toma como la primera imagen.
-  // Si la imagen no es una URL absoluta, se antepone API_BASE_URL (agregando la barra "/" si es necesaria)
+  // Si la imagen no es una URL absoluta, se antepone API_BASE_URL_LOCAL (agregando "/" si es necesario)
   const mainImageSrc = (entry.images && entry.images.length > 0)
     ? (entry.images[0].startsWith('http')
          ? entry.images[0]
-         : `${API_BASE_URL}${entry.images[0].startsWith('/') ? '' : '/'}${entry.images[0]}`)
+         : `${API_BASE_URL_LOCAL}${entry.images[0].startsWith('/') ? '' : '/'}${entry.images[0]}`)
     : 'placeholder.jpg';
 
   /* Construimos el carrusel con todas las imágenes (si hay más de una)
@@ -25,7 +29,7 @@ function verMas(id) {
     ? entry.images.map((image, index) => {
         const src = image.startsWith('http')
           ? image
-          : `${API_BASE_URL}${image.startsWith('/') ? '' : '/'}${image}`;
+          : `${API_BASE_URL_LOCAL}${image.startsWith('/') ? '' : '/'}${image}`;
         return `<img src="${src}" alt="${entry.location}" class="detail-image extra-image" data-index="${index}" loading="lazy">`;
       })
     : [];
@@ -133,5 +137,3 @@ function initCarousel() {
     updateCarousel();
   });
 }
-
-

@@ -1,11 +1,12 @@
 // forms.js
 (function () {
-  // Definir API_BASE_URL si no existe
+  // Si window.API_BASE_URL ya está definido (por ejemplo, en config.js), se usará;
+  // de lo contrario se asigna un valor por defecto para desarrollo.
   if (typeof window.API_BASE_URL === 'undefined') {
     window.API_BASE_URL = 'http://localhost:4000';
   }
-  const API_BASE_URL = window.API_BASE_URL;
-  console.log("API_BASE_URL:", API_BASE_URL);
+  const API_BASE_URL_LOCAL = window.API_BASE_URL;
+  console.log("API_BASE_URL:", API_BASE_URL_LOCAL);
 
   // Función para generar y mostrar el formulario en un modal
   async function generarFormulario() {
@@ -13,10 +14,10 @@
     const modal = document.createElement('div');
     modal.className = 'modal';
 
-    // Obtener categorías desde el servidor
+    // Obtener categorías desde el servidor usando API_BASE_URL_LOCAL
     let categories = [];
     try {
-      const response = await fetch(`${API_BASE_URL}/categories`);
+      const response = await fetch(`${API_BASE_URL_LOCAL}/categories`);
       if (!response.ok) throw new Error('Error al cargar categorías');
       categories = await response.json();
     } catch (error) {
@@ -24,7 +25,7 @@
       categories = [];
     }
 
-    // Construir el HTML del modal
+    // Construir el HTML del modal con las categorías obtenidas
     modal.innerHTML = `
       <div class="modal-content">
         <form id="entry-form">
@@ -209,6 +210,7 @@
     imageUrlsInput.addEventListener('input', actualizarPrevisualizacion);
   }
 
+  // Función para actualizar la previsualización de imágenes (locales y de URL)
   function actualizarPrevisualizacion() {
     const previewContainer = document.getElementById('preview-container');
     previewContainer.innerHTML = '';
@@ -238,6 +240,7 @@
     });
   }
 
+  // Función para guardar la entrada (enviando los datos al backend usando API_BASE_URL_LOCAL)
   async function guardarEntrada(e) {
     e.preventDefault();
     const submitButton = document.getElementById('btn-guardar');
@@ -249,7 +252,7 @@
         submitButton.disabled = false;
         return;
       }
-      // (Opcional: para exigir exactamente 3 imágenes, descomentar las siguientes líneas)
+      // Validación opcional para exigir exactamente 3 imágenes (descomentar si se requiere)
       // const images = document.getElementById('images').files;
       // if (images.length !== 3) {
       //   alert("Debes subir exactamente 3 imágenes.");
@@ -269,7 +272,8 @@
       Array.from(images).forEach(file => {
         formData.append('images', file);
       });
-      const response = await fetch(`${API_BASE_URL}/entries`, {
+      // Enviar la entrada usando API_BASE_URL_LOCAL
+      const response = await fetch(`${API_BASE_URL_LOCAL}/entries`, {
         method: 'POST',
         headers: { 'Accept': 'application/json' },
         body: formData
@@ -310,6 +314,7 @@
     }
   }
 
+  // Al cargar el DOM, asignar el evento al botón para abrir el formulario
   document.addEventListener('DOMContentLoaded', () => {
     const addEntryButton = document.getElementById('add-entry-button');
     if (addEntryButton) {
