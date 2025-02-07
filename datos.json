@@ -1,5 +1,35 @@
 [
   {
+    "id": 1738948002835,
+    "location": "New York, Nueva York, EE. UU.",
+    "date": "2025-02-22",
+    "comments": "manhattan",
+    "lat": 40.7127753,
+    "lon": -74.0059728,
+    "category": "aventura",
+    "images": [
+      "/uploads/hombrerosa-1738948002823.jpg",
+      "/uploads/nia-pequea-leyendo-1738948002825.jpg",
+      "/uploads/niatriste-1738948002827.png"
+    ],
+    "createdAt": "2025-02-07T17:06:42.835Z"
+  },
+  {
+    "id": 1738947191123,
+    "location": "Marruecos",
+    "date": "2025-02-07",
+    "comments": "marruecos",
+    "lat": 31.791702,
+    "lon": -7.092619999999999,
+    "category": "aventura",
+    "images": [
+      "/uploads/captura-de-pantalla-2025-02-07-164518-1738947191102.png",
+      "/uploads/capturaejemplo-1738947191112.png",
+      "/uploads/capturanoe-1738947191116.png"
+    ],
+    "createdAt": "2025-02-07T16:53:11.123Z"
+  },
+  {
     "id": 1738925696147,
     "location": "Paris, Texas, EE. UU.",
     "date": "2025-02-15",
