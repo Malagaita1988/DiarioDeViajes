@@ -7,6 +7,7 @@ node_modules/
 # Ignorar bases de datos y archivos de datos
 database
 datos
+db/
 
 # Ignorar archivos de paquetes generados
 package-lock.json

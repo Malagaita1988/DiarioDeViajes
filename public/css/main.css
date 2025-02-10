@@ -326,6 +326,7 @@ main {
     }
 }
 
+/* Ajustes para pantallas medianas (hasta 768px) */
 @media (max-width: 768px) {
     #entries-container {
         grid-template-columns: 1fr;
@@ -333,6 +334,7 @@ main {
     .entry {
         aspect-ratio: unset;
         height: auto;
+        min-height: 350px; /* Garantiza una altura mínima para mantener la forma */
     }
     .entry-content h3 {
         font-size: 0.9rem;
@@ -351,6 +353,7 @@ main {
     }
 }
 
+/* Ajustes para pantallas muy pequeñas (hasta 480px) */
 @media (max-width: 480px) {
     #entries-container {
         gap: 1rem;
@@ -369,10 +372,12 @@ main {
         padding: 0.5rem;
         min-height: 60px;
     }
+    /* Anulamos el flex: 1 para que cada botón ocupe el 100% de ancho y no se solapen */
     .entry-buttons button {
+        flex: none;
+        width: 100%;
         font-size: 0.6rem;
         padding: 0.3rem 0.6rem;
-        width: 100%;
         min-width: 80px;
     }
     #toggle-entries-button {

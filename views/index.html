@@ -1,17 +1,13 @@
 <!DOCTYPE html>
 <html lang="es">
-
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <meta http-equiv="Content-Language" content="es">
-
   <title>Diario de Viajes - Travel Vibes</title>
 
-
-  <meta name="description"
-    content="Descubre y comparte tus experiencias de viaje en Diario de Viajes. Únete a la comunidad y explora destinos únicos alrededor del mundo.">
+  <meta name="description" content="Descubre y comparte tus experiencias de viaje en Diario de Viajes. Únete a la comunidad y explora destinos únicos alrededor del mundo.">
   <meta name="keywords" content="viajes, turismo, aventuras, cultura, gastronomía, diario de viajes, Travel Vibes">
   <meta name="robots" content="index, follow">
   <meta name="author" content="Travel Vibes">
@@ -19,11 +15,9 @@
   <!-- Canonical -->
   <link rel="canonical" href="https://www.diariodeviajes.com/">
 
-
   <!-- Open Graph Tags -->
   <meta property="og:title" content="Diario de Viajes - Travel Vibes">
-  <meta property="og:description"
-    content="Descubre y comparte tus experiencias de viaje en Diario de Viajes. Únete a la comunidad y explora destinos únicos alrededor del mundo.">
+  <meta property="og:description" content="Descubre y comparte tus experiencias de viaje en Diario de Viajes. Únete a la comunidad y explora destinos únicos alrededor del mundo.">
   <meta property="og:image" content="https://www.diariodeviajes.com/path/to/og-image.jpg">
   <meta property="og:url" content="https://www.diariodeviajes.com/">
   <meta property="og:type" content="website">
@@ -32,8 +26,7 @@
   <!-- Twitter Card Tags -->
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Diario de Viajes - Travel Vibes">
-  <meta name="twitter:description"
-    content="Descubre y comparte tus experiencias de viaje en Diario de Viajes. Únete a la comunidad y explora destinos únicos alrededor del mundo.">
+  <meta name="twitter:description" content="Descubre y comparte tus experiencias de viaje en Diario de Viajes. Únete a la comunidad y explora destinos únicos alrededor del mundo.">
   <meta name="twitter:image" content="https://www.diariodeviajes.com/path/to/twitter-image.jpg">
 
   <!-- Datos estructurados JSON-LD para la organización -->
@@ -56,7 +49,11 @@
   <!-- Favicon -->
   <link rel="icon" href="/favicon.ico" type="image/x-icon">
 
-  <!-- Hojas de estilos existentes -->
+  <!-- Preconnect para recursos externos -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+  <!-- Hojas de estilos -->
   <link rel="stylesheet" href="/css/base.css">
   <link rel="stylesheet" href="/css/main.css">
   <link rel="stylesheet" href="/css/detalle.css">
@@ -65,23 +62,40 @@
   <link rel="stylesheet" href="/css/form.css">
   <link rel="stylesheet" href="/css/slider.css">
   <link rel="stylesheet" href="/css/footer.css">
-  <!-- Hoja de estilos para el selector de idiomas -->
   <link rel="stylesheet" href="/css/language-selector.css">
 
   <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;700&display=swap" rel="stylesheet">
-  <link
-    href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;1,700&family=Poppins:wght@400;600&display=swap"
-    rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;1,700&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 
-  <!-- Google Maps API: La API key se inyecta desde el backend mediante EJS -->
-  <script async src="https://maps.googleapis.com/maps/api/js?key=<%= googleMapsApiKey %>&libraries=places"></script>
+  <!-- Función global initMap para Google Maps -->
+  <script>
+    function initMap() {
+      const mapContainer = document.getElementById('map');
+      if (!mapContainer) {
+        console.error("No se encontró el contenedor del mapa.");
+        return;
+      }
+      const options = {
+        center: { lat: -34.397, lng: 150.644 },
+        zoom: 8
+      };
+      new google.maps.Map(mapContainer, options);
+    }
+  </script>
+
+  <!-- Google Maps API: se carga de forma asíncrona y con defer -->
+  <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCjJdxb3VGXo53nEAxpMtbq0Y6_OTn3aF0&libraries=places&callback=initMap"></script>
 
   <!-- Google Translate (widget oculto) -->
   <style>
-    /* Ocultamos el widget por defecto de Google Translate */
     #google_translate_element {
       display: none;
+    }
+    .entry-image {
+      aspect-ratio: 16 / 9;
+      width: 100%;
+      object-fit: cover;
     }
   </style>
   <script>
@@ -93,14 +107,13 @@
       console.log("Google Translate widget inicializado");
     }
   </script>
-  <script src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+  <script defer src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 </head>
-
 <body>
-  <!-- Contenedor del widget de Google Translate (obligatorio, aunque se oculte) -->
+  <!-- Widget de Google Translate (oculto) -->
   <div id="google_translate_element"></div>
 
-  <!-- Selector de Idiomas Personalizado -->
+  <!-- Selector de idiomas personalizado -->
   <div class="language-selector">
     <select id="language-select">
       <option value="es" selected>🇪🇸</option>
@@ -115,7 +128,7 @@
   <!-- HEADER -->
   <header>
     <div class="header-top">
-      <!-- Área Izquierda: Enlaces de autenticación y badge de usuario -->
+      <!-- Área izquierda: Enlaces de autenticación y badge de usuario -->
       <div class="header-left">
         <div class="auth-links">
           <a href="#" class="auth-link" data-form="login" data-tooltip="Iniciar Sesión">
@@ -134,11 +147,11 @@
           </div>
         </div>
       </div>
-      <!-- Área Centro: Título -->
+      <!-- Área central: Título -->
       <div class="header-center">
         <h1 class="header-title">Diario de viajes</h1>
       </div>
-      <!-- Área Derecha: Botón de hamburguesa -->
+      <!-- Área derecha: Botón de hamburguesa -->
       <div class="header-right">
         <button class="hamburger">
           <span></span>
@@ -199,9 +212,7 @@
         <path stroke-width="4" stroke="white" d="M21 6V29"></path>
       </svg>
       <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 89 80" class="garbage">
-        <path fill="white"
-          d="M20.5 10.5L37.5 15.5L42.5 11.5L51.5 12.5L68.75 0L72 11.5L79.5 12.5H88.5L87 22L68.75 31.5L75.5066 25L86 26L87 35.5L77.5 48L70.5 49.5L80 50L77.5 71.5L63.5 58.5L53.5 68.5L65.5 70.5L45.5 73L35.5 79.5L28 67L16 63L12 51.5L0 48L16 25L22.5 17L20.5 10.5Z">
-        </path>
+        <path fill="white" d="M20.5 10.5L37.5 15.5L42.5 11.5L51.5 12.5L68.75 0L72 11.5L79.5 12.5H88.5L87 22L68.75 31.5L75.5066 25L86 26L87 35.5L77.5 48L70.5 49.5L80 50L77.5 71.5L63.5 58.5L53.5 68.5L65.5 70.5L45.5 73L35.5 79.5L28 67L16 63L12 51.5L0 48L16 25L22.5 17L20.5 10.5Z"></path>
       </svg>
       <div class="tooltip-content">Limpiar favoritos</div>
     </button>
@@ -214,6 +225,7 @@
     </section>
     <section id="entries-container"></section>
     <div id="toggle-button-container" class="hidden"></div>
+    <!-- Contenedor del mapa sin estilos inline -->
     <section id="map-container">
       <div id="map"></div>
     </section>
@@ -250,8 +262,7 @@
     <div class="footer-content">
       <div class="footer-section about">
         <h3><i class="fas fa-compass"></i> Sobre Nosotros</h3>
-        <p>Travel Vibes es una plataforma donde puedes compartir tus experiencias y descubrimientos por el mundo. ¡Únete
-          a nuestra comunidad!</p>
+        <p>Travel Vibes es una plataforma donde puedes compartir tus experiencias y descubrimientos por el mundo. ¡Únete a nuestra comunidad!</p>
       </div>
       <div class="footer-section faq">
         <h3><i class="fas fa-question-circle"></i> Preguntas Frecuentes</h3>
@@ -325,19 +336,17 @@
   <!-- Aviso push-up -->
   <div id="login-notification" class="login-notification"></div>
 
-  <!-- Scripts existentes -->
-  <script src="js/config.js"></script>
-  <script src="/js/main.js"></script>
-  <script src="/js/map.js"></script>
-  <script src="/js/favorites.js"></script>
-  <script src="/js/entries.js"></script>
-  <script src="/js/detail.js"></script>
-  <script src="/js/form.js"></script>
-  <script src="/js/auth.js"></script>
-  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-  <script src="/js/slider.js"></script>
-  <!-- Script para el selector de idiomas -->
-  <script src="/js/language-selector.js"></script>
+  <!-- Scripts adicionales (se cargan con defer para no bloquear el renderizado) -->
+  <script defer src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script defer src="/js/config.js"></script>
+  <script defer src="/js/main.js"></script>
+  <script defer src="/js/map.js"></script>
+  <script defer src="/js/favorites.js"></script>
+  <script defer src="/js/entries.js"></script>
+  <script defer src="/js/detail.js"></script>
+  <script defer src="/js/form.js"></script>
+  <script defer src="/js/auth.js"></script>
+  <script defer src="/js/slider.js"></script>
+  <script defer src="/js/language-selector.js"></script>
 </body>
-
 </html>
