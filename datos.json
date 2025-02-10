@@ -1,20 +1,5 @@
 [
   {
-    "id": 1739180154157,
-    "location": "Kuta, Badung, Bali, Indonesia",
-    "date": "2009-02-02",
-    "comments": "Kuta, Bali, es un paraíso tropical con playas doradas, olas perfectas para surfear y vibrante vida nocturna. Sus mercados, templos y atardeceres espectaculares crean una atmósfera mágica y relajada.",
-    "lat": -8.7237964,
-    "lon": 115.1752277,
-    "category": "aventura",
-    "images": [
-      "/uploads/kuta3-1739180154148.webp",
-      "/uploads/kuta4-1739180154150.webp",
-      "/uploads/kuta5-1739180154153.webp"
-    ],
-    "createdAt": "2025-02-10T09:35:54.157Z"
-  },
-  {
     "id": 1739180004442,
     "location": "Los Ángeles, California, EE. UU.",
     "date": "2023-05-28",

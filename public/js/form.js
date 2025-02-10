@@ -279,14 +279,20 @@
         body: formData
       });
       if (!response.ok) throw new Error(await response.text());
+      
+      // Agregar la clase "sent" para activar la animación en el botón
       submitButton.classList.add('sent');
-      const previewContainer = document.getElementById('preview-container');
-      previewContainer.innerHTML = `
-        <div class="success-feedback">
-          <div class="loader"></div>
-          <p>Guardando viaje...</p>
-        </div>
-      `;
+      // Esperar 1200ms para permitir que se vea la animación completa antes de actualizar la previsualización
+      setTimeout(() => {
+        const previewContainer = document.getElementById('preview-container');
+        previewContainer.innerHTML = `
+          <div class="success-feedback">
+            <div class="loader"></div>
+            <p>Guardando viaje...</p>
+          </div>
+        `;
+      }, 1200);
+
       let modalClosed = false;
       const mainTimer = setTimeout(() => {
         modalClosed = true;

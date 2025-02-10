@@ -9,6 +9,7 @@ function initMap() {
 }
 
 function mostrarMapa(lat, lon) {
+    // Actualiza el centro del mapa y muestra el marcador
     map.setCenter({ lat, lng: lon });
     map.setZoom(10);
     if (marker) marker.setMap(null);
@@ -16,4 +17,10 @@ function mostrarMapa(lat, lon) {
         position: { lat, lng: lon },
         map: map,
     });
+
+    // Desplaza la vista a la sección donde está el mapa de forma suave
+    const mapSection = document.getElementById('map-container');
+    if (mapSection) {
+        mapSection.scrollIntoView({ behavior: 'smooth' });
+    }
 }
