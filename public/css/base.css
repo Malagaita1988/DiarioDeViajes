@@ -48,3 +48,24 @@ body {
     }
 }
 
+/* Estilos para el botón "Subir Arriba" */
+#scrollTopBtn {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background-color: #333;
+    color: #fff;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 50%;
+    cursor: pointer;
+    display: none; /* Oculto por defecto */
+    z-index: 1000;
+    transition: opacity 0.3s;
+  }
+  
+  #scrollTopBtn:hover {
+    background-color: #555;
+  }
+  
+
