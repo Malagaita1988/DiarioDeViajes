@@ -37,7 +37,7 @@ header {
     display: flex;
     align-items: center;
     gap: 1rem;
-    margin-right: auto; /* Empuja el título hacia el centro */
+    margin-right: auto; /* En pantallas grandes empuja el título hacia el centro */
 }
 
 .auth-links {
@@ -138,6 +138,7 @@ header {
     cursor: pointer;
     font-size: 0.9rem;
 }
+
 .user-dropdown button:hover {
     background: #02c39a;
 }
@@ -176,7 +177,7 @@ header {
     z-index: 1000;
     transition: all 0.3s ease;
     margin-left: 1rem;
-    display: none; /* Se muestra en responsive */
+    display: none; /* Se mostrará en responsive */
     position: absolute;
     right: 1rem;
     top: 50%;
@@ -290,6 +291,28 @@ header {
     .category-btn,
     #add-entry-button {
         width: 100%;
+        justify-content: center;
+    }
+    
+    /* Ocultamos el botón de "Iniciar Sesión" para ahorrar espacio */
+    .auth-links a[data-form="login"] {
+        display: none;
+    }
+    
+    /* Para mantener el header en una sola línea y perfectamente centrado */
+    .header-top {
+        flex-direction: row;
+        justify-content: space-around;
+        align-items: center;
+    }
+    .header-left,
+    .header-center,
+    .header-right {
+        flex: 1;
+        text-align: center;
+        margin: 0;
+    }
+    .auth-links {
         justify-content: center;
     }
 }
