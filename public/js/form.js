@@ -25,7 +25,7 @@
       categories = [];
     }
 
-    // Construir el HTML del modal con las categorías obtenidas
+    // Construir el HTML del modal con las categorías obtenidas y tooltips en cada campo
     modal.innerHTML = `
       <div class="modal-content">
         <form id="entry-form">
@@ -34,25 +34,25 @@
             <!-- Columna 1 -->
             <div class="form-column">
               <div class="form-group">
-                <label for="location">Lugar:</label>
-                <input type="text" id="location" name="location" placeholder="Escribe un lugar..." required>
+                <label for="location" title="Introduce el lugar del viaje">Lugar:</label>
+                <input type="text" id="location" name="location" placeholder="Escribe un lugar..." required title="Escribe el nombre del lugar">
               </div>
               <div class="form-group">
-                <label for="date">Fecha:</label>
-                <input type="date" id="date" name="date" required>
+                <label for="date" title="Selecciona la fecha del viaje">Fecha:</label>
+                <input type="date" id="date" name="date" required title="Selecciona la fecha en formato AAAA-MM-DD">
               </div>
               <div class="form-group">
-                <label for="comments">Comentarios:</label>
-                <textarea id="comments" name="comments" placeholder="Escribe tus comentarios..." required></textarea>
+                <label for="comments" title="Escribe comentarios adicionales sobre el viaje">Comentarios:</label>
+                <textarea id="comments" name="comments" placeholder="Escribe tus comentarios..." required title="Agrega detalles o comentarios del viaje"></textarea>
               </div>
             </div>
             <!-- Columna 2 -->
             <div class="form-column">
               <div class="form-group">
-                <label>Categoría:</label>
+                <label title="Selecciona la categoría que describa mejor el viaje">Categoría:</label>
                 <div class="radio-inputs-custom" id="category-container">
                   ${categories.map(cat => `
-                    <label class="radio-custom">
+                    <label class="radio-custom" title="Selecciona la categoría: ${cat.text}">
                       <input type="radio" name="category" value="${cat.value}" required>
                       <span class="name">${cat.text}</span>
                     </label>
@@ -61,7 +61,7 @@
               </div>
               <div class="form-group">
                 <input type="file" id="images" name="images" accept="image/*" multiple hidden>
-                <button type="button" class="upload-button" id="upload-button">
+                <button type="button" class="upload-button" id="upload-button" title="Sube imágenes (máximo 3 imágenes)">
                   <svg viewBox="0 0 200 48" class="upload-svg">
                     <rect class="upload-border" x="2" y="2" width="196" height="44" rx="8" ry="8" fill="none" stroke-width="2" pathLength="100"/>
                     <rect class="loading-bar" x="2" y="2" width="0" height="44" rx="8" ry="8" fill="rgba(255,85,105,0.2)"/>
@@ -71,14 +71,14 @@
                 </button>
               </div>
               <div class="form-group">
-                <label for="image-urls">URLs de imágenes:</label>
-                <input type="text" id="image-urls" name="image-urls" placeholder="Separadas por comas">
+                <label for="image-urls" title="Introduce las URLs de las imágenes separadas por comas">URLs de imágenes:</label>
+                <input type="text" id="image-urls" name="image-urls" placeholder="Separadas por comas" title="Escribe las URLs de las imágenes, separadas por comas">
               </div>
             </div>
           </div>
           <div class="form-group" id="preview-container"></div>
           <div class="form-actions">
-            <button type="button" class="button btn-cancel" id="close-modal">
+            <button type="button" class="button btn-cancel" id="close-modal" title="Cancelar el formulario">
               <div class="outline"></div>
               <div class="state state--default">
                 <div class="icon">
@@ -106,7 +106,7 @@
                 </p>
               </div>
             </button>
-            <button type="submit" class="button btn-save" id="btn-guardar">
+            <button type="submit" class="button btn-save" id="btn-guardar" title="Guardar el viaje">
               <div class="outline"></div>
               <div class="state state--default">
                 <div class="icon">

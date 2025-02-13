@@ -18,7 +18,7 @@ function mostrarMapa(lat, lon) {
         map: map,
     });
 
-    // Desplaza la vista a la sección donde está el mapa de forma suave
+  
     const mapSection = document.getElementById('map-container');
     if (mapSection) {
         mapSection.scrollIntoView({ behavior: 'smooth' });
