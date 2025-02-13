@@ -17,11 +17,12 @@ function verMas(id) {
 
   // La imagen principal se toma como la primera imagen.
   // Si la imagen no es una URL absoluta, se antepone API_BASE_URL_LOCAL (agregando "/" si es necesario)
+  // Si no existe ninguna imagen, se utiliza la imagen por defecto.
   const mainImageSrc = (entry.images && entry.images.length > 0)
     ? (entry.images[0].startsWith('http')
          ? entry.images[0]
          : `${API_BASE_URL_LOCAL}${entry.images[0].startsWith('/') ? '' : '/'}${entry.images[0]}`)
-    : 'placeholder.jpg';
+    : 'https://static9.depositphotos.com/1229718/1162/i/950/depositphotos_11622181-stock-photo-global-questions.jpg';
 
   /* Construimos el carrusel con todas las imágenes (si hay más de una)
      para poder actualizar la imagen principal al navegar. */
@@ -59,7 +60,7 @@ function verMas(id) {
         <button class="close-detail-button" onclick="closeDetailModal()">X</button>
         <div class="detail-image-wrapper">
           <div class="detail-image-container">
-            <img src="${mainImageSrc}" alt="${entry.location}" class="detail-image" loading="lazy">
+            <img src="${mainImageSrc}" alt="${entry.location}" class="detail-image" loading="lazy" onerror="this.src='https://static9.depositphotos.com/1229718/1162/i/950/depositphotos_11622181-stock-photo-global-questions.jpg'">
             <div class="category-watermark">${entry.category || "Sin categoría"}</div>
           </div>
           ${ carouselHTML }

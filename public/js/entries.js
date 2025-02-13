@@ -43,20 +43,24 @@ function renderEntries(entries) {
     const entryId = entry.id.toString();
     const isFavorited = favoritos.has(entryId);
 
-    // Se forma la URL de la imagen: si es absoluta se usa tal cual;
-    // de lo contrario, se antepone API_BASE_URL y se agrega la barra si hace falta.
+    // Determinar la imagen a mostrar:
+    // Si la entrada tiene imágenes, se usa la primera:
+    //   - Si la URL es absoluta (comienza con "http"), se usa tal cual.
+    //   - Si es relativa, se antepone API_BASE_URL (añadiendo la barra si es necesario).
+    // Si no tiene imágenes, se utiliza la imagen por defecto.
     const imagePath = entry.images && entry.images.length > 0 ? entry.images[0] : '';
+    const defaultImage = 'https://static9.depositphotos.com/1229718/1162/i/950/depositphotos_11622181-stock-photo-global-questions.jpg';
     const firstImage = imagePath
       ? ( imagePath.startsWith("http")
             ? imagePath
             : `${API_BASE_URL}${ imagePath.startsWith('/') ? '' : '/' }${imagePath}` )
-      : 'placeholder.jpg';
+      : defaultImage;
 
     const entryElement = document.createElement("div");
     entryElement.className = "entry";
     entryElement.innerHTML = `
       <div class="entry-image-container">
-          <img src="${firstImage}" alt="${entry.location}" class="entry-image" onerror="this.src='placeholder.jpg'">
+          <img src="${firstImage}" alt="${entry.location}" class="entry-image" onerror="this.src='${defaultImage}'">
           <span class="entry-watermark">${entry.category || "Sin categoría"}</span>
       </div>
       <div class="entry-content">

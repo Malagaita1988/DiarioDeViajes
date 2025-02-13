@@ -246,7 +246,7 @@
   right: 1rem;
   width: var(--size);
   height: var(--size);
-  background: rgba(255, 255, 255, 0.2);
+  background: rgba(255, 255, 255, 0.067);
   border: none;
   border-radius: 50%;
   display: grid;
