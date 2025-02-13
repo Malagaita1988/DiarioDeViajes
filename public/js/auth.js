@@ -87,10 +87,21 @@ document.addEventListener('DOMContentLoaded', () => {
 
       if (data.success) {
         alert('Login exitoso');
-        // Guardar el nombre del usuario en localStorage (suponemos que data.username contiene el nombre completo)
-        localStorage.setItem('loggedUser', data.username);
-        updateUIForLoggedUser();
-        hideAuthModal();
+
+        // Si el usuario es admin, guardar el token y redirigir al panel de administración
+        if (data.admin) {
+          localStorage.setItem('adminToken', data.adminToken);
+          // Elimina cualquier token de usuario normal
+          localStorage.removeItem('loggedUser');
+          window.location.href = '/admin.html';
+        } else {
+          // Si es usuario normal, guardar el nombre y actualizar la UI
+          localStorage.setItem('loggedUser', data.username);
+          updateUIForLoggedUser();
+          hideAuthModal();
+          window.location.href = '/';
+        }
+
         // Limpiar el formulario de login
         loginForm.reset();
 
@@ -128,7 +139,6 @@ document.addEventListener('DOMContentLoaded', () => {
       if (data.success) {
         alert('Registro exitoso');
         hideAuthModal();
-        // Limpiar el formulario de registro
         registerForm.reset();
       } else {
         alert(`Error en el registro: ${data.error}`);
@@ -151,6 +161,7 @@ document.addEventListener('DOMContentLoaded', () => {
   if (logoutBtn) {
     logoutBtn.addEventListener('click', () => {
       localStorage.removeItem('loggedUser');
+      localStorage.removeItem('adminToken');
       updateUIForLoggedUser();
       alert('Sesión cerrada');
     });

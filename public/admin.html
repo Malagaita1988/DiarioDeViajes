@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Panel de Control del Administrador</title>
+  <style>
+    .container {
+      max-width: 900px;
+      margin: 20px auto;
+      padding: 20px;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 20px;
+    }
+    th, td {
+      padding: 12px;
+      border: 1px solid #ddd;
+      text-align: left;
+    }
+    th {
+      background-color: #f4f4f4;
+    }
+    button {
+      padding: 6px 12px;
+      background-color: #dc3545;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Panel de Control del Administrador</h1>
+    <button onclick="logout()">Cerrar sesión</button>
+    <h2>Usuarios Registrados</h2>
+    <div id="datosAdmin"></div>
+  </div>
+  <script>
+    async function cargarUsuarios() {
+      const token = localStorage.getItem('adminToken');
+      try {
+        const response = await fetch('/api/admin/usuarios', {
+          headers: { 'x-admin-key': token }
+        });
+        if (!response.ok) throw new Error('No autorizado');
+        const usuarios = await response.json();
+        renderUsuarios(usuarios);
+      } catch (error) {
+        alert(error.message);
+        window.location.href = '/';
+      }
+    }
+    
+    function renderUsuarios(usuarios) {
+      const container = document.getElementById('datosAdmin');
+      if (!usuarios || usuarios.length === 0) {
+        container.innerHTML = '<p>No hay usuarios registrados.</p>';
+        return;
+      }
+      container.innerHTML = `
+        <table>
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Nombre</th>
+              <th>Email</th>
+              <th>Fecha de Registro</th>
+              <th>Último Login</th>
+              <th>Acciones</th>
+            </tr>
+          </thead>
+          <tbody>
+            ${usuarios.map(u => `
+              <tr>
+                <td>${u.id}</td>
+                <td>${u.username}</td>
+                <td>${u.email}</td>
+                <td>${u.created_date ? new Date(u.created_date).toLocaleString() : '-'}</td>
+                <td>${u.last_login_date ? new Date(u.last_login_date).toLocaleString() : '-'}</td>
+                <td>
+                  <button onclick="deleteUser(${u.id})">Eliminar</button>
+                </td>
+              </tr>
+            `).join('')}
+          </tbody>
+        </table>
+      `;
+    }
+    
+    async function deleteUser(userId) {
+      if (!confirm('¿Estás seguro de eliminar este usuario?')) return;
+      const token = localStorage.getItem('adminToken');
+      try {
+        const response = await fetch(`/api/admin/usuarios/${userId}`, {
+          method: 'DELETE',
+          headers: { 'x-admin-key': token }
+        });
+        if (!response.ok) throw new Error('Error al eliminar el usuario');
+        alert('Usuario eliminado correctamente');
+        cargarUsuarios(); // Recargar la lista de usuarios
+      } catch (error) {
+        alert(error.message);
+      }
+    }
+    
+    function logout() {
+      localStorage.removeItem('adminToken');
+      window.location.href = '/';
+    }
+    
+    // Iniciar carga de usuarios al cargar la página
+    cargarUsuarios();
+  </script>
+</body>
+</html>

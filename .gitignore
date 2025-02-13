@@ -8,6 +8,8 @@ node_modules/
 database
 datos
 db/
+public/db.code-workspace
+
 
 # Ignorar archivos de paquetes generados
 package-lock.json

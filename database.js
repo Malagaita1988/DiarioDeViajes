@@ -29,14 +29,16 @@ const db = new sqlite3.Database(
   }
 );
 
-// Crear la tabla "users" si no existe
+// Crear la tabla "users" si no existe, con las nuevas columnas
 db.serialize(() => {
   db.run(
     `CREATE TABLE IF NOT EXISTS users (
       id INTEGER PRIMARY KEY AUTOINCREMENT,
       username TEXT UNIQUE,
       email TEXT UNIQUE,
-      password TEXT
+      password TEXT,
+      created_date TEXT,         -- Fecha de registro
+      last_login_date TEXT       -- Último inicio de sesión
     )`,
     (err) => {
       if (err) {

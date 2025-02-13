@@ -11,6 +11,10 @@ const db = require('./database'); // Configuración de SQLite (archivo database.
 const app = express();
 const PORT = process.env.PORT || 4000;
 
+// ADMIN_KEY se utiliza para proteger las rutas de administración.
+// Se define en .env o se usa el valor por defecto.
+const ADMIN_KEY = process.env.ADMIN_KEY || 'admin123';
+
 // === Configuración para renderizar archivos .html con EJS ===
 app.engine('html', require('ejs').renderFile);
 app.set('view engine', 'html');
@@ -53,6 +57,17 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, 'public')));
 
+// Middleware para proteger rutas de administración (con logs para depuración)
+function checkAdmin(req, res, next) {
+  const adminKey = req.headers['x-admin-key'];
+  console.log("ADMIN_KEY (desde .env):", ADMIN_KEY);
+  console.log("Header x-admin-key recibido:", adminKey);
+  if (!adminKey || adminKey !== ADMIN_KEY) {
+    return res.status(403).json({ error: 'Acceso denegado: credenciales de administrador inválidas.' });
+  }
+  next();
+}
+
 // Helpers para leer/escribir en datos.json
 const readData = () => {
   try {
@@ -80,7 +95,7 @@ app.get('/', (req, res) => {
 // RUTAS PARA MANEJO DE USUARIOS (Registro y Login)
 // ---------------------------------------------------------------------------------
 
-// Registro de usuario
+// Registro de usuario (se guarda la fecha de creación)
 app.post('/register', async (req, res) => {
   try {
     const { username, email, password } = req.body;
@@ -97,8 +112,9 @@ app.post('/register', async (req, res) => {
           return res.status(400).json({ error: 'El usuario o email ya existe' });
         }
         const hashedPassword = await bcrypt.hash(password, 10);
-        db.run('INSERT INTO users (username, email, password) VALUES (?, ?, ?)',
-          [username, email, hashedPassword],
+        const createdDate = new Date().toISOString();
+        db.run('INSERT INTO users (username, email, password, created_date) VALUES (?, ?, ?, ?)',
+          [username, email, hashedPassword, createdDate],
           function (insertErr) {
             if (insertErr) {
               console.error("Error al insertar:", insertErr);
@@ -115,7 +131,7 @@ app.post('/register', async (req, res) => {
   }
 });
 
-// Login de usuario
+// Login de usuario (actualiza el último inicio de sesión)
 app.post('/login', async (req, res) => {
   const { email, password } = req.body;
   if (!email || !password) {
@@ -134,7 +150,30 @@ app.post('/login', async (req, res) => {
       if (!match) {
         return res.status(400).json({ error: 'Usuario o contraseña inválidos' });
       }
-      return res.json({ success: true, message: 'Login exitoso', userId: user.id, username: user.username });
+      
+      // Actualizar el campo last_login_date
+      const lastLoginDate = new Date().toISOString();
+      db.run('UPDATE users SET last_login_date = ? WHERE id = ?', [lastLoginDate, user.id]);
+      
+      // Si el usuario es administrador (definido por email)
+      if (user.email === 'admin@gmail.com') {
+        return res.json({ 
+          success: true, 
+          message: 'Bienvenido, administrador', 
+          userId: user.id, 
+          username: user.username,
+          admin: true,
+          adminToken: ADMIN_KEY
+        });
+      } else {
+        return res.json({ 
+          success: true, 
+          message: 'Login exitoso', 
+          userId: user.id, 
+          username: user.username,
+          admin: false
+        });
+      }
     } catch (compareErr) {
       console.error("Error al comparar contraseñas:", compareErr);
       return res.status(500).json({ error: 'Error al comparar contraseñas' });
@@ -146,7 +185,7 @@ app.post('/login', async (req, res) => {
 // RUTAS PARA MANEJO DE "ENTRIES" (viajes)
 // ---------------------------------------------------------------------------------
 
-// Obtener todas las entradas
+// Obtener todas las entradas (público)
 app.get('/entries', (req, res) => {
   try {
     const entries = readData().map(entry => ({
@@ -164,36 +203,10 @@ app.get('/categories', (req, res) => {
   res.json(categories);
 });
 
-// Eliminar una entrada
-app.delete('/entries/:id', (req, res) => {
-  try {
-    const targetId = Number(req.params.id);
-    const entries = readData();
-    const entryIndex = entries.findIndex(entry => entry.id === targetId);
-    if (entryIndex === -1) {
-      return res.status(404).json({ message: 'Entrada no encontrada' });
-    }
-    // Eliminar imágenes asociadas
-    entries[entryIndex].images.forEach(imagePath => {
-      if (imagePath.startsWith('/uploads/')) {
-        const fullPath = path.join(__dirname, 'public', imagePath);
-        if (fs.existsSync(fullPath)) {
-          fs.unlinkSync(fullPath);
-        }
-      }
-    });
-    const updatedEntries = entries.filter(entry => entry.id !== targetId);
-    writeData(updatedEntries);
-    res.json({ message: 'Entrada eliminada correctamente' });
-  } catch (err) {
-    res.status(500).json({ message: 'Error al eliminar entrada', error: err.message });
-  }
-});
-
 // Crear una nueva entrada (hasta 3 imágenes)
 app.post('/entries', upload.array('images', 3), (req, res) => {
   try {
-    console.log("Archivos recibidos:", req.files); // Depuración de archivos recibidos
+    console.log("Archivos recibidos:", req.files);
     const { location, date, comments, lat, lon, category, imageUrls = '' } = req.body;
     const normalizedCategory = category.toLowerCase().trim();
     const isValidCategory = categories.some(cat => cat.value.toLowerCase() === normalizedCategory);
@@ -217,6 +230,13 @@ app.post('/entries', upload.array('images', 3), (req, res) => {
           return false;
         }
       });
+    
+    // Si no se subió ninguna imagen, asignar una imagen por defecto
+    const allImages = [...uploadedImages, ...urlImages];
+    if (allImages.length === 0) {
+      allImages.push('https://static9.depositphotos.com/1229718/1162/i/950/depositphotos_11622181-stock-photo-global-questions.jpg');
+    }
+
     const newEntry = {
       id: Date.now(),
       location: location.trim(),
@@ -225,7 +245,7 @@ app.post('/entries', upload.array('images', 3), (req, res) => {
       lat: parseFloat(lat) || 0,
       lon: parseFloat(lon) || 0,
       category: normalizedCategory,
-      images: [...uploadedImages, ...urlImages],
+      images: allImages,
       createdAt: new Date().toISOString()
     };
     const entries = readData();
@@ -240,7 +260,95 @@ app.post('/entries', upload.array('images', 3), (req, res) => {
   }
 });
 
+// ---------------------------------------------------------------------------------
+// RUTAS ADMIN: Gestión de entradas (protegidas)
+// ---------------------------------------------------------------------------------
+
+// Obtener todas las entradas (admin)
+app.get('/admin/entries', checkAdmin, (req, res) => {
+  try {
+    const entries = readData();
+    res.json(entries);
+  } catch (err) {
+    res.status(500).json({ message: 'Error al leer entradas', error: err.message });
+  }
+});
+
+// Actualizar una entrada (admin)
+app.put('/admin/entries/:id', checkAdmin, (req, res) => {
+  try {
+    const targetId = Number(req.params.id);
+    let entries = readData();
+    const entryIndex = entries.findIndex(entry => entry.id === targetId);
+    if (entryIndex === -1) {
+      return res.status(404).json({ message: 'Entrada no encontrada' });
+    }
+    const updatedEntry = { ...entries[entryIndex], ...req.body };
+    entries[entryIndex] = updatedEntry;
+    writeData(entries);
+    res.json(updatedEntry);
+  } catch (err) {
+    res.status(500).json({ message: 'Error al actualizar entrada', error: err.message });
+  }
+});
+
+// Eliminar una entrada (admin)
+app.delete('/admin/entries/:id', checkAdmin, (req, res) => {
+  try {
+    const targetId = Number(req.params.id);
+    const entries = readData();
+    const entryIndex = entries.findIndex(entry => entry.id === targetId);
+    if (entryIndex === -1) {
+      return res.status(404).json({ message: 'Entrada no encontrada' });
+    }
+    (entries[entryIndex].images || []).forEach(imagePath => {
+      if (imagePath.startsWith('/uploads/')) {
+        const fullPath = path.join(__dirname, 'public', imagePath);
+        if (fs.existsSync(fullPath)) {
+          fs.unlinkSync(fullPath);
+        }
+      }
+    });
+    const updatedEntries = entries.filter(entry => entry.id !== targetId);
+    writeData(updatedEntries);
+    res.json({ message: 'Entrada eliminada correctamente' });
+  } catch (err) {
+    res.status(500).json({ message: 'Error al eliminar entrada', error: err.message });
+  }
+});
+
+// ---------------------------------------------------------------------------------
+// RUTAS ADMIN: Registro de Usuarios (protegido)
+// ---------------------------------------------------------------------------------
+
+// Obtener todos los usuarios registrados (solo admin)
+app.get('/api/admin/usuarios', checkAdmin, (req, res) => {
+  db.all('SELECT id, username, email, created_date, last_login_date FROM users', [], (err, rows) => {
+    if (err) {
+      return res.status(500).json({ error: err.message });
+    }
+    res.json(rows);
+  });
+});
+
+// Eliminar un usuario 
+app.delete('/api/admin/usuarios/:id', checkAdmin, (req, res) => {
+  const userId = req.params.id;
+  db.run('DELETE FROM users WHERE id = ?', [userId], function(err) {
+    if (err) {
+      return res.status(500).json({ error: err.message });
+    }
+    if (this.changes === 0) {
+      return res.status(404).json({ error: 'Usuario no encontrado' });
+    }
+    res.json({ message: 'Usuario eliminado correctamente' });
+  });
+});
+
+
+// ---------------------------------------------------------------------------------
 // Endpoint de diagnóstico
+// ---------------------------------------------------------------------------------
 app.get('/health', (req, res) => {
   try {
     const data = {
