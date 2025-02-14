@@ -57,13 +57,13 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, 'public')));
 
-// Middleware para proteger rutas de administración (con logs para depuración)
+// Middleware para proteger rutas de administración con mensaje personalizado
 function checkAdmin(req, res, next) {
   const adminKey = req.headers['x-admin-key'];
   console.log("ADMIN_KEY (desde .env):", ADMIN_KEY);
   console.log("Header x-admin-key recibido:", adminKey);
   if (!adminKey || adminKey !== ADMIN_KEY) {
-    return res.status(403).json({ error: 'Acceso denegado: credenciales de administrador inválidas.' });
+    return res.status(403).json({ error: 'Para borrar hable con el admin del site' });
   }
   next();
 }
@@ -331,7 +331,7 @@ app.get('/api/admin/usuarios', checkAdmin, (req, res) => {
   });
 });
 
-// Eliminar un usuario 
+// Eliminar un usuario (solo admin)
 app.delete('/api/admin/usuarios/:id', checkAdmin, (req, res) => {
   const userId = req.params.id;
   db.run('DELETE FROM users WHERE id = ?', [userId], function(err) {
@@ -344,7 +344,6 @@ app.delete('/api/admin/usuarios/:id', checkAdmin, (req, res) => {
     res.json({ message: 'Usuario eliminado correctamente' });
   });
 });
-
 
 // ---------------------------------------------------------------------------------
 // Endpoint de diagnóstico

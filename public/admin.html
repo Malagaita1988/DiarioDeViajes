@@ -1,17 +1,20 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Panel de Control del Administrador</title>
+  <title>Panel de Administración</title>
   <style>
     .container {
       max-width: 900px;
       margin: 20px auto;
       padding: 20px;
     }
+    h2 {
+      margin-top: 40px;
+    }
     table {
       width: 100%;
       border-collapse: collapse;
-      margin-top: 20px;
+      margin-top: 10px;
     }
     th, td {
       padding: 12px;
@@ -33,19 +36,25 @@
 </head>
 <body>
   <div class="container">
-    <h1>Panel de Control del Administrador</h1>
+    <h1>Panel de Administración</h1>
     <button onclick="logout()">Cerrar sesión</button>
+
     <h2>Usuarios Registrados</h2>
-    <div id="datosAdmin"></div>
+    <div id="datosUsuarios"></div>
+
+    <h2>Entradas (viajes)</h2>
+    <div id="datosEntradas"></div>
   </div>
+
   <script>
+    // Función para cargar los usuarios
     async function cargarUsuarios() {
       const token = localStorage.getItem('adminToken');
       try {
         const response = await fetch('/api/admin/usuarios', {
           headers: { 'x-admin-key': token }
         });
-        if (!response.ok) throw new Error('No autorizado');
+        if (!response.ok) throw new Error('No autorizado (usuarios)');
         const usuarios = await response.json();
         renderUsuarios(usuarios);
       } catch (error) {
@@ -54,8 +63,9 @@
       }
     }
     
+    // Función para renderizar la tabla de usuarios
     function renderUsuarios(usuarios) {
-      const container = document.getElementById('datosAdmin');
+      const container = document.getElementById('datosUsuarios');
       if (!usuarios || usuarios.length === 0) {
         container.innerHTML = '<p>No hay usuarios registrados.</p>';
         return;
@@ -90,6 +100,7 @@
       `;
     }
     
+    // Función para eliminar un usuario
     async function deleteUser(userId) {
       if (!confirm('¿Estás seguro de eliminar este usuario?')) return;
       const token = localStorage.getItem('adminToken');
@@ -100,19 +111,93 @@
         });
         if (!response.ok) throw new Error('Error al eliminar el usuario');
         alert('Usuario eliminado correctamente');
-        cargarUsuarios(); // Recargar la lista de usuarios
+        cargarUsuarios();
       } catch (error) {
         alert(error.message);
       }
     }
     
+    // Función para cargar las entradas (viajes)
+    async function cargarEntradas() {
+      const token = localStorage.getItem('adminToken');
+      try {
+        const response = await fetch('/admin/entries', {
+          headers: { 'x-admin-key': token }
+        });
+        if (!response.ok) throw new Error('No autorizado (entradas)');
+        const entries = await response.json();
+        renderEntries(entries);
+      } catch (error) {
+        alert(error.message);
+        window.location.href = '/';
+      }
+    }
+    
+    // Función para renderizar la tabla de entradas
+    function renderEntries(entries) {
+      const container = document.getElementById('datosEntradas');
+      if (!entries || entries.length === 0) {
+        container.innerHTML = '<p>No hay entradas disponibles.</p>';
+        return;
+      }
+      container.innerHTML = `
+        <table>
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Lugar</th>
+              <th>Fecha</th>
+              <th>Categoría</th>
+              <th>Comentarios</th>
+              <th>Fecha de Creación</th>
+              <th>Acciones</th>
+            </tr>
+          </thead>
+          <tbody>
+            ${entries.map(entry => `
+              <tr>
+                <td>${entry.id}</td>
+                <td>${entry.location}</td>
+                <td>${entry.date}</td>
+                <td>${entry.category}</td>
+                <td>${entry.comments}</td>
+                <td>${entry.createdAt ? new Date(entry.createdAt).toLocaleString() : '-'}</td>
+                <td>
+                  <button onclick="deleteEntry(${entry.id})">Eliminar</button>
+                </td>
+              </tr>
+            `).join('')}
+          </tbody>
+        </table>
+      `;
+    }
+    
+    // Función para eliminar una entrada
+    async function deleteEntry(entryId) {
+      const token = localStorage.getItem('adminToken');
+      if (!confirm('¿Estás seguro de eliminar esta entrada?')) return;
+      try {
+        const response = await fetch(`/admin/entries/${entryId}`, {
+          method: 'DELETE',
+          headers: { 'x-admin-key': token }
+        });
+        if (!response.ok) throw new Error(await response.text());
+        alert('Entrada eliminada correctamente');
+        cargarEntradas();
+      } catch (error) {
+        alert('Error al eliminar entrada: ' + error.message);
+      }
+    }
+    
+    // Función para cerrar sesión
     function logout() {
       localStorage.removeItem('adminToken');
       window.location.href = '/';
     }
     
-    // Iniciar carga de usuarios al cargar la página
+    // Cargar usuarios y entradas al cargar la página
     cargarUsuarios();
+    cargarEntradas();
   </script>
 </body>
 </html>

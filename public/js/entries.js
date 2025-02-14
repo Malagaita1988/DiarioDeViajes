@@ -44,10 +44,6 @@ function renderEntries(entries) {
     const isFavorited = favoritos.has(entryId);
 
     // Determinar la imagen a mostrar:
-    // Si la entrada tiene imágenes, se usa la primera:
-    //   - Si la URL es absoluta (comienza con "http"), se usa tal cual.
-    //   - Si es relativa, se antepone API_BASE_URL (añadiendo la barra si es necesario).
-    // Si no tiene imágenes, se utiliza la imagen por defecto.
     const imagePath = entry.images && entry.images.length > 0 ? entry.images[0] : '';
     const defaultImage = 'https://static9.depositphotos.com/1229718/1162/i/950/depositphotos_11622181-stock-photo-global-questions.jpg';
     const firstImage = imagePath
@@ -163,14 +159,36 @@ function applyFilters(searchText, category) {
   renderEntries(currentEntries);
 }
 
+// Función para asignar eventos a los botones de favoritos
+function assignFavoriteButtonEvents() {
+  document.querySelectorAll(".favorite-entry-button").forEach((button) => {
+    button.onclick = () => toggleFavorite(button.dataset.entryId, button);
+  });
+}
+
+// Función para asignar eventos a los botones de eliminar entradas
+function assignDeleteButtonEvents() {
+  document.querySelectorAll(".delete-entry-button").forEach((button) => {
+    button.onclick = () => deleteEntry(button.dataset.entryId);
+  });
+}
+
 async function deleteEntry(entryId) {
   if (!confirm("¿Eliminar esta entrada?")) return;
   try {
     const numericId = Number(entryId);
-    const response = await fetch(`${API_BASE_URL}/entries/${numericId}`, {
-      method: "DELETE"
+    const response = await fetch(`${API_BASE_URL}/admin/entries/${numericId}`, {
+      method: "DELETE",
+      headers: {
+        'x-admin-key': localStorage.getItem('adminToken')
+      }
     });
-    if (!response.ok) throw new Error(await response.text());
+    if (!response.ok) {
+      if (response.status === 403) {
+        throw new Error("Para borrar hable con el admin del site");
+      }
+      throw new Error(await response.text());
+    }
     allEntries = allEntries.filter(e => e.id !== numericId);
     currentEntries = currentEntries.filter(e => e.id !== numericId);
     renderEntries(currentEntries);
@@ -202,18 +220,6 @@ function updateFavoritesCounter() {
   const favoritos = JSON.parse(localStorage.getItem("favoritos") || "[]");
   const counter = document.getElementById("favorites-counter");
   if (counter) counter.textContent = favoritos.length;
-}
-
-function assignFavoriteButtonEvents() {
-  document.querySelectorAll(".favorite-entry-button").forEach((button) => {
-    button.onclick = () => toggleFavorite(button.dataset.entryId, button);
-  });
-}
-
-function assignDeleteButtonEvents() {
-  document.querySelectorAll(".delete-entry-button").forEach((button) => {
-    button.onclick = () => deleteEntry(button.dataset.entryId);
-  });
 }
 
 // Inicialización al cargar el DOM
